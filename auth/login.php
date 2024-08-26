@@ -1,13 +1,9 @@
 <?php
 session_start();
 require '../app/config/db.php';
-// require '../app/model/AuthDAL.php';
 require '../app/controller/AuthController.php';
 
-// Create AuthDAL instance
 $authDAL = new AuthDAL($pdo);
-
-// Create AuthController instance
 $authController = new AuthController($authDAL);
 
 // Handle registration request
@@ -42,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card shadow-lg">
                         <div class="card-body p-5">
                             <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
-                            <form method="POST" action="" class="needs-validation" novalidate="" autocomplete="off">
+                            <form method="POST" action="" class="needs-validation" novalidate="" autocomplete="on">
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
                                     <input id="email" type="email" class="form-control" name="email" placeholder="Enter your email." required autofocus>

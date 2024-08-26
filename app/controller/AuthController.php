@@ -1,7 +1,4 @@
 <?php
-///////////////////////////////////////////
-// HANDLING FORMS & VALIDATION FUNCTIONS //
-///////////////////////////////////////////
 require '../app/config/db.php';
 require '../app/model/AuthDAL.php';
 
@@ -19,90 +16,102 @@ class AuthController
 
     public function login()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-            $password = trim($_POST['password']);
-
-            // Validations
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
-                return;
-            }
-
-            $user = $this->authDAL->authenticateUser($email, $password); // Verify email and password
-            if ($user) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['roles'] = $user['role'];
-                $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
-
-                // Set cookies for 'Remember Me' functionality
-                if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
-                    $cookieExpiration = time() + 30 * 24 * 60 * 60; // 30 days Cookies Expriration time
-                    setcookie('user_email', $email, $cookieExpiration, '/', '', true, true);
-                } else {
-                    setcookie('user_email', '', time() - 3600, '/', '', true, true);
-                }
-                // Redirect based on role
-                switch ($user['role']) {
-                    case 'admin':
-                        header('Location: ../admin/dashboard.php');
-                        break;
-                    case 'officer':
-                        header('Location: ../officer/dashboard.php');
-                        break;
-                    case 'user':
-                    default:
-                        header('Location: ../user/dashboard.php');
-                        break;
-                }
-                exit;
-            } else {
-                $_SESSION['alert'] = ['type' => 'error', 'message' => 'Wrong email or password.'];
-            }
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['login'])) {
+            return;
         }
+        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+        $password = trim($_POST['password']);
+        // Validate input values
+        if (empty($email) || empty($password)) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
+            return;
+        }
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
+            return;
+        }
+        // Authenticate user
+        $user = $this->authDAL->authenticateUser($email, $password);
+        if (!$user) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'Wrong email or password.'];
+            return;
+        }
+        // Set session variables
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['role'] = $user['role'];
+        $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
+        // Handle 'Remember Me' functionality
+        if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
+            $cookieExpiration = time() + 30 * 24 * 60 * 60; // 30 days
+            setcookie('user_email', $email, $cookieExpiration, '/', '', true, true);
+        } else {
+            setcookie('user_email', '', time() - 3600, '/', '', true, true);
+        }
+        // Redirect based on role
+        $redirectMap = [
+            'admin' => '../admin/dashboard.php',
+            'officer' => '../officer/dashboard.php',
+            'user' => '../user/dashboard.php',
+        ];
+        $redirectUrl = $redirectMap[$user['role']] ?? '../user/dashboard.php';
+        
+        header("Location: $redirectUrl");
+        exit;
     }
 
     public function register()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-            $fullname = htmlspecialchars(trim($_POST['fullname']));
-            $address = htmlspecialchars(trim($_POST['address']));
-            $gender = htmlspecialchars(trim($_POST['gender']));
-            $phone_number = htmlspecialchars(trim($_POST['phone_number']));
-            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-            $password = trim($_POST['password']);
-            $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : 'user';
+        // Ensure the request is a POST request and the register key is present
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['register'])) {
+            return;
+        }
+        // Sanitize and trim input values
+        $fullname = htmlspecialchars(trim($_POST['fullname']));
+        $address = htmlspecialchars(trim($_POST['address']));
+        $dateOfBirth = htmlspecialchars(trim($_POST['dateOfBirth']));
+        $gender = htmlspecialchars(trim($_POST['gender']));
+        $phone_number = htmlspecialchars(trim($_POST['phone_number']));
+        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+        $password = trim($_POST['password']);
+        $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : 'user';
 
-            // Validation
-            if (empty($fullname) || empty($address) || empty($phone_number) || empty($email) || empty($password)) {
-                $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
-            } elseif (strlen($password) < 8) {
-                $_SESSION['alert'] = ['type' => 'error', 'message' => 'Password must be at least 8 characters long.'];
-            } else {
-
-                // Check if email already exists
-                $existingUser = $this->authDAL->authenticateUser($email, $password);
-                if ($existingUser) {
-                    $_SESSION['alert'] = ['type' => 'error', 'message' => 'User with this email already exists.'];
-                } else {
-
-                    $result = $this->authDAL->registerUser($fullname, $address, $gender, $phone_number, $email, $password, $role);
-                    if ($result) {
-                        $_SESSION['alert'] = ['type' => 'success', 'message' => 'Registration successful. Please log in.'];
-                        header('Location: login.php');
-                        exit;
-                    } else {
-                        $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to register user.'];
-                    }
-                }
-            }
+        // Validate input values
+        if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
+            return;
+        }
+        // Validate the format of the emails is correct
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
+            return;
+        }
+        // Password must 8 characters Long
+        if (strlen($password) < 8) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'Password must be at least 8 characters long.'];
+            return;
+        }
+        // Check if the email already exists in the database
+        if ($this->authDAL->emailExists($email)) {
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'User with this email already exists.'];
+            return;
+        }
+        // Register the user if all validations pass
+        $result = $this->authDAL->registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role);
+        if ($result) {
+            // Success: set session alert and redirect to login page
+            $_SESSION['alert'] = ['type' => 'success', 'message' => 'Registration successful. Please log in.'];
+            header('Location: login.php');
+            exit;
+        } else {
+            // Failure: set session alert for registration failure
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to register user.'];
         }
     }
 
     public function logout()
     {
+        session_start();
         session_unset();
         session_destroy();
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Logged out successfully.'];

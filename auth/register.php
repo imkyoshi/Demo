@@ -1,13 +1,9 @@
 <?php
 session_start();
 require '../app/config/db.php';
-// require '../app/model/AuthDAL.php';
 require '../app/controller/AuthController.php';
 
-// Create AuthDAL instance
 $authDAL = new AuthDAL($pdo);
-
-// Create AuthController instance
 $authController = new AuthController($authDAL);
 
 // Handle registration request
@@ -15,8 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController->register();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8" />
     <meta name="author" content="Muhamad Nauval Azhar" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="This is a login page template based on Bootstrap 5" />
     <title>DEMO|Register Page</title>
     <link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -39,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="../assets/img/st 3.png" alt="logo"
                             width="150" />
                     </div>
-                    <div class="card shadow-lg">
+                    <div class="card shadow-lg col-md">
                         <div class="card-body p-5">
                             <h1 class="fs-4 card-title fw-bold mb-4">Register</h1>
-                            <form method="POST" action="" class="needs-validation" novalidate="" autocomplete="off">
+                            <form method="POST" action="" class="needs-validation" novalidate="" autocomplete="on">
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="fullname">Full Name</label>
                                     <input id="fullname" type="text" class="form-control" name="fullname" placeholder="Enter your Full Name" required autofocus />
@@ -54,6 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input id="address" type="text" class="form-control" name="address" placeholder="Enter your Address" required />
                                     <div class="invalid-feedback">Address is required</div>
                                 </div>
+
+                                <div class="mb-3">
+                                <label class="mb-2 text-muted" for="dateOfBirth">Date of Birth</label>
+                                <input id="dateOfBirth" type="date" class="form-control" name="dateOfBirth" required>
+                                    <div class="invalid-feedback">Date Of Birth is required</div>
+                                </div>
+
 
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="gender">Gender</label>
@@ -83,8 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="invalid-feedback">Password is required</div>
                                 </div>
 
-
-
                                 <p class="form-text text-muted mb-3">
                                     By registering you agree with our terms and condition.
                                 </p>
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </section>
 
-    <?php require '../auth/include/script.php'; ?>
+    <?php require '../auth/include/script.php';?>
 </body>
 
 </html>

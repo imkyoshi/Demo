@@ -1,7 +1,4 @@
 <?php
-////////////////////////////////////////////
-// DATA LAYER SERVICES FOR AUTHENTICATION //
-////////////////////////////////////////////
 include '../app/config/db.php';
 
 class AuthDAL
@@ -26,13 +23,22 @@ class AuthDAL
         return false;
     }
 
-    public function registerUser($fullname, $address, $gender, $phone_number, $email, $password, $role = 'user')
+    public function emailExists($email)
+    {
+        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute(); 
+        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+    }
+
+    public function registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role = 'user')
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare("INSERT INTO users (fullname, address, gender, phone_number, email, password, role) VALUES (:fullname, :address, :gender, :phone_number, :email, :password, :role)");
+        $stmt = $this->pdo->prepare("INSERT INTO users (fullname, address, dateOfBirth, gender, phone_number, email, password, role) VALUES (:fullname, :address, :dateOfBirth, :gender, :phone_number, :email, :password, :role)");
         
         $stmt->bindParam(':fullname', $fullname, PDO::PARAM_STR);
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+        $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
         $stmt->bindParam(':gender', $gender, PDO::PARAM_STR);
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);

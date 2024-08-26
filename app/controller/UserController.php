@@ -1,95 +1,115 @@
 <?php
-require 'app/model/UserDAL.php';
+require '../app/config/db.php';
+require '../app/model/UserDAL.php';
 
 // Handles forms
 class UserController
 {
-
     private $userDAL;
     private $currentUserID;
 
-    public function __construct($db)
+    public function __construct($userDAL)
     {
-        $this->userDAL = new UserDAL($db);
+        $this->userDAL = $userDAL;
         $this->currentUserID = isset(($_SESSION['user_id'])) ? $_SESSION['user_id'] : null;
     }
-
-    // public function isAdmin()
-    // {
-    //     return isset($_SESSION['roles']) && $_SESSION['roles'] === 'admin';
-    // }
-
-    // public function redirectIfNotAdmin()
-    // {
-    //     if (!$this->isAdmin()) {
-    //         header("Location: ../auth/login.php");
-    //         exit;
-    //     }
-    // }
-
+    // Check if the user is admin
+    public function isAdmin()
+    {
+        return isset($_SESSION['roles']) && $_SESSION['roles'] === 'admin';
+    }
+    public function redirectIfNotAdmin()
+    {
+        if (!$this->isAdmin()) {
+            header("Location: ../auth/login.php");
+            exit;
+        }
+    }
+    // Fetch User
     public function getAllUser()
     {
         return $this->userDAL->getAllUser();
     }
-
     public function getUserById($id)
     {
         return $this->userDAL->getUserById($id);
     }
-
+    ///////////////////////
+    //  CRUD OPERATIONS  //
+    ///////////////////////
+    
+    // Add a new user
     public function handleAddUser()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addUser'])) {
-            $fullName = $_POST['fullName'];
-            $phoneNumber = $_POST['phoneNumber'];
-            $address = $_POST['address'];
-            $dateOfBirth = $_POST['dateOfBirth'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $roles = $_POST['role'];
-
+            $fullName = htmlspecialchars(trim($_POST['fullName']));
+            $phoneNumber = htmlspecialchars(trim($_POST['phoneNumber']));
+            $address = htmlspecialchars(trim($_POST['address']));
+            $dateOfBirth = htmlspecialchars(trim($_POST['dateOfBirth']));
+            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+            $password = trim($_POST['password']);
+            $roles = htmlspecialchars(trim($_POST['role']));
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $result = $this->userDAL->addUser($fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
 
-            if ($result === true) {
-                header("Location: ../admin/user_management.php");
-                exit;
-            } elseif ($result === "User with this email already exists.") {
-                return "User with this email already exists.";
+            //Validation
+            if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
+                $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
             } else {
-                return "Failed to add user.";
+                $result = $this->userDAL->addUser($fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
+                if ($result) {
+                    $_SESSION['alert'] = ['type' => 'success', 'message' => 'Add New User Succesfull'];
+                    header('Location: ../admin/user_management.php');
+                    exit;
+                } else {
+                    $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to add new User'];
+                }
             }
+            return null;
         }
-        return null;
     }
-
+    // Update an existing user
     public function handleUpdateUser()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUser'])) {
             $id = $_POST['editUserId'];
-            $fullName = $_POST['editFullName'];
-            $phoneNumber = $_POST['editPhoneNumber'];
-            $address = $_POST['editAddress'];
-            $dateOfBirth = $_POST['editDateOfBirth'];
-            $email = $_POST['editEmail'];
-            $password = $_POST['editPassword'];
-            $roles = $_POST['editRole'];
-
+            $fullName = htmlspecialchars(trim($_POST['editFullName']));
+            $phoneNumber = htmlspecialchars(trim($_POST['editPhoneNumber']));
+            $address = htmlspecialchars(trim($_POST['editAddress']));
+            $dateOfBirth = htmlspecialchars(trim($_POST['editDateOfBirth']));
+            $email = filter_var(trim($_POST['editEmail']), FILTER_SANITIZE_EMAIL);
+            $password = trim($_POST['editPassword']);
+            $roles = htmlspecialchars(trim($_POST['editRole']));
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $success = $this->userDAL->updateUser($id, $fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
 
-            return $success ? "User updated successfully." : "Failed to update user.";
+            //Validation
+            if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
+                $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
+            } else {
+                $result = $this->userDAL->updateUser($id, $fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
+                if ($result) {
+                    $_SESSION['alert'] = ['type' => 'success', 'message' => 'Update New User Succesfull'];
+                    header('Location: ../admin/user_management.php');
+                    exit;
+                } else {
+                    $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to Update new User'];
+                }
+            }
+            return null;
         }
-        return null;
     }
-
+    // Delete a new user
     public function handleDeleteUser()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
-            $id = $_POST['deleteUserId'];
-
-            $success = $this->userDAL->deleteUser($id);
-            return $success ? "User deleted successfully." : "Failed to delete user.";
+            $id = htmlspecialchars(trim($_POST['deleteUserId']));
+            $result = $this->userDAL->deleteUser($id);
+            if ($result) {
+                $_SESSION['alert'] = ['type' => 'success', 'message' => 'Delete Successful'];
+                header('Location: ../admin/user_management.php');
+                exit;
+            } else {
+                $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to delete User'];
+            }
         }
         return null;
     }

@@ -40,13 +40,14 @@ function handleGet($pdo)
 function handlePost($pdo, $input)
 {
     try {
-    $sql = "INSERT INTO users (fullname, address, gender, phone_number, email, password, role)
+    $sql = "INSERT INTO users (fullname, address, gender, dateOfBirth, phone_number, email, password, role)
     VALUES (:fullname, :address, :gender, :phone_number, :email, :password, :role)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         'fullname' => $input['fullname'], 
         'address' => $input['address'], 
-        'gender' => $input['gender'], 
+        'gender' => $input['gender'],
+        'dateOfBirth' => $input['dateOfBirth'],
         'phone_number' => $input['phone_number'], 
         'email' => $input['email'], 
         'password' => $input['password'], 

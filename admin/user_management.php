@@ -3,10 +3,11 @@ require_once '../app/config/db.php';
 require_once '../app/controller/UserController.php';
 
 // Instantiate database and UserController
-$database = new Database();
-$db = $database->connect();
-$userController = new UserController($db);
-$userController->redirectIfNotAdmin();
+// $db = $database->connect();
+$userDAL = new UserDAL($pdo);
+$userController = new UserController($userDAL);
+
+// $currentUserInfo = $currentUserID->getUserById();
 
 // Handle form submissions
 $addErrorMessage = $userController->handleAddUser();
@@ -23,7 +24,8 @@ $users = $userController->getAllUser();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div class="container mt-5">
@@ -63,8 +65,9 @@ $users = $userController->getAllUser();
             <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
                 <select class="form-select" id="role" name="role">
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                    <option value="officer">Officer</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary" name="addUser">Add User</button>
@@ -88,6 +91,7 @@ $users = $userController->getAllUser();
                 <th>Gender</th>
                 <th>Phone Number</th>
                 <th>Email</th>
+                <th>Roles</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -100,6 +104,7 @@ $users = $userController->getAllUser();
                     <td><?=htmlspecialchars($user['gender'])?></td>
                     <td><?=htmlspecialchars($user['phone_number'])?></td>
                     <td><?=htmlspecialchars($user['email'])?></td>
+                    <td><?=htmlspecialchars($user['role'])?></td>
                     <td>
                         <!-- Update Form -->
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal<?=htmlspecialchars($user['id'])?>">Update</button>
@@ -135,7 +140,7 @@ $users = $userController->getAllUser();
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editDateOfBirth<?=htmlspecialchars($user['id'])?>" class="form-label">Date of Birth</label>
-                                                <input type="date" class="form-control" id="editDateOfBirth<?=htmlspecialchars($user['id'])?>" name="editDateOfBirth" value="<?=htmlspecialchars($user['date_of_birth'])?>" required>
+                                                <input type="date" class="form-control" id="editDateOfBirth<?=htmlspecialchars($user['id'])?>" name="editDateOfBirth" value="<?=htmlspecialchars($user['dateOfBirth'])?>" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editEmail<?=htmlspecialchars($user['id'])?>" class="form-label">Email</label>
@@ -148,8 +153,9 @@ $users = $userController->getAllUser();
                                             <div class="mb-3">
                                                 <label for="editRole<?=htmlspecialchars($user['id'])?>" class="form-label">Role</label>
                                                 <select class="form-select" id="editRole<?=htmlspecialchars($user['id'])?>" name="editRole">
-                                                    <option value="USER" <?=$user['role'] === 'USER' ? 'selected' : ''?>>User</option>
-                                                    <option value="ADMIN" <?=$user['role'] === 'ADMIN' ? 'selected' : ''?>>Admin</option>
+                                                    <option value="user" <?=$user['role'] === 'user' ? 'selected' : ''?>>User</option>
+                                                    <option value="admin" <?=$user['role'] === 'admin' ? 'selected' : ''?>>Admin</option>
+                                                    <option value="officer" <?=$user['role'] === 'officer' ? 'selected' : ''?>>Officer</option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="btn btn-primary" name="updateUser">Update</button>
@@ -164,8 +170,8 @@ $users = $userController->getAllUser();
         </tbody>
     </table>
 </div>
-
+<?php require '../auth/include/script.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<script src="../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

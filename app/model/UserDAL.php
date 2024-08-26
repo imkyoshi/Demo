@@ -1,15 +1,13 @@
 <?php
-require '../app/config/db.php';
-// require '../../app/controller/AuthController.php';
-
+include '../app/config/db.php';
 // User(DAL) => Data Layer Service's
 class UserDAL
 {
-    private $conn;
+    private $pdo;
 
-    public function __construct($db)
+    public function __construct($pdo)
     {
-        $this->conn = $db;
+        $this->pdo = $pdo;
     }
 
     //  FETCH USER'S  //
@@ -17,7 +15,7 @@ class UserDAL
     {
         // Fetch All Users
         $sql = "SELECT * FROM users";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -27,7 +25,7 @@ class UserDAL
     {
         // Fetch User by ID
         $sql = "SELECT * FROM users WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -37,23 +35,24 @@ class UserDAL
     public function getUserByEmail($email)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+    ///////////////////////
     //  CRUD OPERATIONS  //
+    ///////////////////////
 
     // Add a new user
     public function addUser($fullname, $address, $gender, $phone_number, $email, $password, $roles)
     {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (fullname, address, gender, phone_number, email, password)
                 VALUES (:fullname, :address, :gender, :phone_number, :email, :password, 'user')";
-        $stmt = $this->conn->prepare($sql);
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+        $stmt = $this->pdo->prepare($sql);
+        
         // Bind parameters
         $stmt->bindParam(':fullname', $fullname);
         $stmt->bindParam(':address', $address);
@@ -72,8 +71,8 @@ class UserDAL
         $query = "UPDATE users
             SET fullname = :fullname, address = :address, gender = :gender, phone_number = :phone_number, email = :email, password = :password, role = :role
             WHERE id = :id";
-
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->pdo->prepare($query);
+        
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':fullname', $fullname);
         $stmt->bindParam(':address', $address);
@@ -89,10 +88,17 @@ class UserDAL
     // Delete a user
     public function deleteUser($id)
     {
+        // Prepare and execute the delete statement
         $query = "DELETE FROM users WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
-
-        return $stmt->execute();
+        $result = $stmt->execute();
+        if ($result) {
+            $query = "ALTER TABLE users AUTO_INCREMENT = 1";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+        }
+        return $result;
     }
+    
 }
