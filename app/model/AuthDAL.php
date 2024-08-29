@@ -1,5 +1,5 @@
 <?php
-include '../app/config/db.php';
+include '../../../app/config/db.php';
 
 class AuthDAL
 {

@@ -9,6 +9,11 @@
   "author": "ljbrosoto",
   "license": "ISC",
   "dependencies": {
+    "postcss": "^8.4.41",
+    "postcss-cli": "^11.0.0",
     "sweetalert2": "^11.12.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
   }
 }

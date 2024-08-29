@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AuthControllerTest::testLoginSuccess":8,"AuthControllerTest::testLoginFailure":8,"AuthControllerTest::testRegisterSuccess":8,"AuthControllerTest::testRegisterFailure":8,"AuthControllerTest::testLogout":8},"times":[]}

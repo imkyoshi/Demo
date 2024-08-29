@@ -1,18 +1,28 @@
 <?php
-require '../app/config/db.php';
-require '../app/model/AuthDAL.php';
+require '../../../app/config/db.php';
+require '../../../app/model/AuthDAL.php';
+require '../../../app/Helpers/Cookies.php';
 
 $authDAL = new AuthDAL($pdo);
 $authController = new AuthController($authDAL);
 
+use Helpers\Cookies;
+
 class AuthController
 {
     private $authDAL;
+    private $cookies;
 
     public function __construct($authDAL)
     {
         $this->authDAL = $authDAL;
+        $this->cookies = new Cookies();
+        $this->cookies->initializeSession();
+        
+        
     }
+
+    
 
     public function login()
     {
@@ -41,13 +51,15 @@ class AuthController
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['role'] = $user['role'];
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
-        // Handle 'Remember Me' functionality
+
         if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
             $cookieExpiration = time() + 30 * 24 * 60 * 60; // 30 days
-            setcookie('user_email', $email, $cookieExpiration, '/', '', true, true);
+            $encryptedEmail = $this->cookies->encrypt($email);
+            setcookie('user_email', $encryptedEmail, $cookieExpiration, '/', '', true, true);
         } else {
             setcookie('user_email', '', time() - 3600, '/', '', true, true);
         }
+
         // Redirect based on role
         $redirectMap = [
             'admin' => '../admin/dashboard.php',
@@ -109,8 +121,18 @@ class AuthController
         }
     }
 
+    public function getDecryptedEmailFromCookie()
+    {
+        if (isset($_COOKIE['user_email'])) {
+            $decryptedEmail = $this->cookies->decrypt($_COOKIE['user_email']);
+            return $decryptedEmail;
+        }
+        return null;
+    }
+
     public function logout()
     {
+        $this->cookies->initializeSession();
         session_start();
         session_unset();
         session_destroy();
