@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link href="../../../../demo/public/css/tailwind.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
         .invalid-feedback {
             display: none;
@@ -40,5 +41,5 @@
     </style>
 </head>
 
-<body class="flex flex-col md:flex-row min-h-screen">
+<body class="flex flex-col min-h-screen md:flex-row">
 

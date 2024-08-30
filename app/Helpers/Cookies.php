@@ -1,5 +1,5 @@
 <?php
-namespace Helpers;
+namespace app\Helpers;
 
 class Cookies
 {

@@ -6,12 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'config\\' => array($baseDir . '/app/config'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
-    'LowellPc\\Demo\\' => array($baseDir . '/src'),
-    'Helpers\\' => array($baseDir . '/app/Helpers'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
-    'App\\Model\\' => array($baseDir . '/app/model'),
-    'App\\Controller\\' => array($baseDir . '/app/controller'),
+    'App\\model\\' => array($baseDir . '/app/model'),
+    'App\\controller\\' => array($baseDir . '/app/controller'),
+    'App\\config\\' => array($baseDir . '/app/config'),
+    'App\\api\\' => array($baseDir . '/app/api'),
+    'App\\Helpers\\' => array($baseDir . '/app/Helpers'),
     'App\\' => array($baseDir . '/app'),
 );
