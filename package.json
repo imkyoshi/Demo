@@ -4,7 +4,11 @@
   "description": "demo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:xdebug": "php -r \"copy('https://xdebug.org/files/xdebug-3.2.1.tgz', 'xdebug.tgz'); tar -xzf xdebug.tgz; rm xdebug.tgz; phpize; ./configure; make; sudo make install\"",
+    "enable:xdebug": "php -d xdebug.mode=debug -d xdebug.start_with_request=yes -r \"phpinfo();\" | findstr xdebug",
+    "disable:xdebug": "php -d xdebug.mode=off -d xdebug.start_with_request=no -r \"phpinfo();\" | findstr xdebug",
+    "test:xdebug": "php -m | findstr xdebug"
   },
   "author": "ljbrosoto",
   "license": "ISC",

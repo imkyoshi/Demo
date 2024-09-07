@@ -1,4 +1,6 @@
 <?php
+namespace app\controller;
+
 require '../app/config/db.php';
 require '../app/model/UserDAL.php';
 
@@ -43,7 +45,7 @@ class UserController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addUser'])) {
             $fullName = htmlspecialchars(trim($_POST['fullName']));
-            $phoneNumber = htmlspecialchars(trim($_POST['phoneNumber']));
+            $phone_number = htmlspecialchars(trim($_POST['phoneNumber']));
             $address = htmlspecialchars(trim($_POST['address']));
             $dateOfBirth = htmlspecialchars(trim($_POST['dateOfBirth']));
             $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
@@ -55,7 +57,7 @@ class UserController
             if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
                 $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
             } else {
-                $result = $this->userDAL->addUser($fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
+                $result = $this->userDAL->addUser($fullName, $phone_number, $address, $dateOfBirth, $email, $hashedPassword, $roles);
                 if ($result) {
                     $_SESSION['alert'] = ['type' => 'success', 'message' => 'Add New User Succesfull'];
                     header('Location: ../admin/user_management.php');
@@ -73,7 +75,7 @@ class UserController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateUser'])) {
             $id = $_POST['editUserId'];
             $fullName = htmlspecialchars(trim($_POST['editFullName']));
-            $phoneNumber = htmlspecialchars(trim($_POST['editPhoneNumber']));
+            $phone_number = htmlspecialchars(trim($_POST['editPhoneNumber']));
             $address = htmlspecialchars(trim($_POST['editAddress']));
             $dateOfBirth = htmlspecialchars(trim($_POST['editDateOfBirth']));
             $email = filter_var(trim($_POST['editEmail']), FILTER_SANITIZE_EMAIL);
@@ -85,7 +87,7 @@ class UserController
             if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
                 $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
             } else {
-                $result = $this->userDAL->updateUser($id, $fullName, $phoneNumber, $address, $dateOfBirth, $email, $hashedPassword, $roles);
+                $result = $this->userDAL->updateUser($id, $fullName, $phone_number, $address, $dateOfBirth, $email, $hashedPassword, $roles);
                 if ($result) {
                     $_SESSION['alert'] = ['type' => 'success', 'message' => 'Update New User Succesfull'];
                     header('Location: ../admin/user_management.php');

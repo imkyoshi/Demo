@@ -12,21 +12,9 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
     );
 
     public static $prefixLengthsPsr4 = array (
-        'c' => 
-        array (
-            'config\\' => 7,
-        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
-        ),
-        'L' => 
-        array (
-            'LowellPc\\Demo\\' => 14,
-        ),
-        'H' => 
-        array (
-            'Helpers\\' => 8,
         ),
         'D' => 
         array (
@@ -34,40 +22,43 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         ),
         'A' => 
         array (
-            'App\\Model\\' => 10,
-            'App\\Controller\\' => 15,
+            'App\\model\\' => 10,
+            'App\\controller\\' => 15,
+            'App\\config\\' => 11,
+            'App\\api\\' => 8,
+            'App\\Helpers\\' => 12,
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'config\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/config',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
-        ),
-        'LowellPc\\Demo\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Helpers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Helpers',
         ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'App\\Model\\' => 
+        'App\\model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/model',
         ),
-        'App\\Controller\\' => 
+        'App\\controller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/controller',
+        ),
+        'App\\config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/config',
+        ),
+        'App\\api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/api',
+        ),
+        'App\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Helpers',
         ),
         'App\\' => 
         array (
@@ -338,6 +329,7 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         'PHPUnit\\Framework\\Attributes\\RequiresPhp' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RequiresPhp.php',
         'PHPUnit\\Framework\\Attributes\\RequiresPhpExtension' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RequiresPhpExtension.php',
         'PHPUnit\\Framework\\Attributes\\RequiresPhpunit' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RequiresPhpunit.php',
+        'PHPUnit\\Framework\\Attributes\\RequiresPhpunitExtension' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RequiresPhpunitExtension.php',
         'PHPUnit\\Framework\\Attributes\\RequiresSetting' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RequiresSetting.php',
         'PHPUnit\\Framework\\Attributes\\RunClassInSeparateProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RunClassInSeparateProcess.php',
         'PHPUnit\\Framework\\Attributes\\RunInSeparateProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Attributes/RunInSeparateProcess.php',
@@ -650,6 +642,7 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         'PHPUnit\\Metadata\\RequiresPhp' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RequiresPhp.php',
         'PHPUnit\\Metadata\\RequiresPhpExtension' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RequiresPhpExtension.php',
         'PHPUnit\\Metadata\\RequiresPhpunit' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RequiresPhpunit.php',
+        'PHPUnit\\Metadata\\RequiresPhpunitExtension' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RequiresPhpunitExtension.php',
         'PHPUnit\\Metadata\\RequiresSetting' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RequiresSetting.php',
         'PHPUnit\\Metadata\\RunClassInSeparateProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RunClassInSeparateProcess.php',
         'PHPUnit\\Metadata\\RunInSeparateProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Metadata/RunInSeparateProcess.php',

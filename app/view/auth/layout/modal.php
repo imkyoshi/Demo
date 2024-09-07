@@ -65,7 +65,7 @@
             By clicking <span class="text-sm font-bold">"I Agree"</span> and continuing with the registration process,
             you acknowledge that you have read, understood, and agree to the terms outlined in this agreement. If you do
             not agree with these terms, please do not proceed with the registration.
-            </p><hr class="drop-shadow mt-5 mb-5">
+            <hr class="drop-shadow mt-5 mb-5">
             <div class="text-right">
                 <button id="agreeBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg">I Agree</button>
             </div>

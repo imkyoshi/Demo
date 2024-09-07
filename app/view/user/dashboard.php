@@ -1,3 +1,7 @@
+<?php 
+namespace 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,15 +1,18 @@
 <?php
+namespace app\api;
+
 require '../config/db.php';
 require '../model/AuthDAL.php';
 require '../Helpers/Cookies.php';
 
 use Helpers\Cookies;
+use AuthDAL;
 
 header("Content-Type: application/json");
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 $authDAL = new AuthDAL($pdo);
-$authController = new AuthController($authDAL);
+$authController = new apiAuth($authDAL);
 
 switch ($requestMethod) {
     case 'POST':
@@ -36,7 +39,7 @@ switch ($requestMethod) {
         break;
 }
 
-class AuthController
+class apiAuth
 {
     private $authDAL;
     private $cookies;
