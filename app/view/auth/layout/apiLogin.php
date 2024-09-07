@@ -5,10 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const formData = new FormData(form);
-        fetch('', {
+        const formData = new URLSearchParams(new FormData(form));
+
+        fetch('../../../api/apiAuth.php', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString() // Send form data as a URL-encoded string
         })
         .then(response => response.json())
         .then(data => {
@@ -42,5 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 </script>

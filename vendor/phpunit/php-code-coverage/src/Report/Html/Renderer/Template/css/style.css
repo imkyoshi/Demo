@@ -147,6 +147,15 @@ table + .structure-heading {
  padding-top: 0.5em;
 }
 
+table#code td:first-of-type {
+  padding-left: .75em;
+  padding-right: .75em;
+}
+
+table#code td:first-of-type a {
+  text-decoration: none;
+}
+
 .legend {
  font-weight: bold;
  margin-right: 2px;

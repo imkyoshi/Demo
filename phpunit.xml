@@ -10,8 +10,9 @@
     failOnWarning="true"
     failOnRisky="true">
 
-    <coverage>
-        <include>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>test/auth/</directory>
             <directory>app/</directory>
             <directory>app/api/</directory>
             <directory>app/config/</directory>
@@ -19,16 +20,16 @@
             <directory>app/Helpers/</directory>
             <directory>app/model/</directory>
             <directory>app/view/auth/</directory>
-        </include>
-    </coverage>
-
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./test/auth/</directory> <!-- Make sure your tests are here -->
         </testsuite>
     </testsuites>
 
-    <!-- <php>
-        <ini name="include_path" value="C:\xampp\htdocs\Demo\app\api;C:\xampp\htdocs\Demo\app\config;C:\xampp\htdocs\Demo\app\controller;C:\xampp\htdocs\Demo\app\Helpers;C:\xampp\htdocs\Demo\app\model" />
-    </php> -->
+    <coverage>
+        <include>
+            <directory>app/</directory>
+        </include>
+        <exclude>
+            <directory>app/tests/</directory>
+        </exclude>
+    </coverage>
+
 </phpunit>

@@ -6,7 +6,7 @@ use app\model\AuthDAL;
 use app\Helpers\Cookies;
 // use app\api\apiAuth; // Api Auth
 
-class AuthController
+class AuthControlle1r
 {
     private $authDAL;
     private $cookies;

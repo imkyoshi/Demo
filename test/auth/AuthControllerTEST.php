@@ -1,108 +1,159 @@
 <?php
-require '../../app/model/AuthDAL.php';
-require '../../app/controller/AuthController.php';
+namespace test\auth;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use app\model\AuthDAL;
 use app\controller\AuthController;
-
+use app\model\AuthDAL;
+use app\Helpers\Cookies;
 
 class AuthControllerTest extends TestCase
 {
     private $authDAL;
+    private $cookies;
     private $authController;
 
     protected function setUp(): void
     {
+        // Mock the AuthDAL and Cookies classes
         $this->authDAL = $this->createMock(AuthDAL::class);
+        $this->cookies = $this->createMock(Cookies::class);
+
+        // Mock cookie initialization
+        $this->cookies->method('initializeSession')->willReturn(true);
+
+        // Pass the mock to the controller
         $this->authController = new AuthController($this->authDAL);
     }
 
     public function testLoginSuccess()
     {
-        $_POST['login'] = true;
-        $_POST['email'] = 'test@example.com';
+        // Mock user data returned from AuthDAL
+        $user = [
+            'id' => 1,
+            'role' => 'admin',
+            'fullname' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ];
+
+        // Set up POST request data
+        $_POST['email'] = 'johndoe@example.com';
         $_POST['password'] = 'password123';
-        $_POST['remember'] = 'on';
+        $_POST['login'] = true;  // Ensure login is set
 
-        $user = ['id' => 1, 'role' => 'admin'];
-        $this->authDAL->method('authenticateUser')
-            ->willReturn($user);
-        $this->authDAL->method('emailExists')
-            ->willReturn(false);
+        // Simulate a POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
 
+        // Mock the authentication process in AuthDAL
+        $this->authDAL->method('authenticateUser')->willReturn($user);
+
+        // Capture the output
         ob_start();
         $this->authController->login();
-        $response = ob_get_clean();
+        $output = ob_get_clean();
 
-        $this->assertStringContainsString('Login successful.', $response);
+        // Decode the JSON response
+        $response = json_decode($output, true);
+
+        // Assertions
+        $this->assertEquals(200, http_response_code());
+        $this->assertArrayHasKey('message', $response);
+        $this->assertEquals('Login successful.', $response['message']);
+        $this->assertArrayHasKey('userId', $response);
+        $this->assertEquals(1, $response['userId']);
+        $this->assertArrayHasKey('token', $response);
     }
 
-    public function testLoginFailure()
+    public function testLoginInvalidEmailFormat()
     {
+        // Set up POST request data with an invalid email
+        $_POST['email'] = 'invalid-email';
+        $_POST['password'] = 'password123';
         $_POST['login'] = true;
-        $_POST['email'] = 'test@example.com';
-        $_POST['password'] = 'wrongpassword';
 
-        $this->authDAL->method('authenticateUser')
-            ->willReturn(false);
+        // Simulate a POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
 
+        // Capture the output
         ob_start();
         $this->authController->login();
-        $response = ob_get_clean();
+        $output = ob_get_clean();
 
-        $this->assertStringContainsString('Wrong email or password.', $response);
+        // Decode the JSON response
+        $response = json_decode($output, true);
+
+        // Assertions
+        $this->assertEquals(400, http_response_code());
+        $this->assertArrayHasKey('error', $response);
+        $this->assertEquals('Invalid email format.', $response['error']);
     }
 
     public function testRegisterSuccess()
     {
-        $_POST['register'] = true;
+        // Set up POST request data for registration
         $_POST['fullname'] = 'John Doe';
         $_POST['address'] = '123 Main St';
         $_POST['dateOfBirth'] = '1990-01-01';
         $_POST['gender'] = 'male';
         $_POST['phone_number'] = '1234567890';
-        $_POST['email'] = 'john@example.com';
+        $_POST['email'] = 'johndoe@example.com';
         $_POST['password'] = 'password123';
+        $_POST['role'] = 'user';
 
-        $this->authDAL->method('emailExists')
-            ->willReturn(false);
-        $this->authDAL->method('registerUser')
-            ->willReturn(true);
+        // Simulate a POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
 
+        // Mock emailExists to return false
+        $this->authDAL->method('emailExists')->willReturn(false);
+
+        // Mock registerUser to return true
+        $this->authDAL->method('registerUser')->willReturn(true);
+
+        // Capture the output
         ob_start();
         $this->authController->register();
-        $response = ob_get_clean();
+        $output = ob_get_clean();
 
-        $this->assertStringContainsString('Registration successful. Please log in.', $response);
+        // Decode the JSON response
+        $response = json_decode($output, true);
+
+        // Assertions
+        $this->assertEquals(201, http_response_code());
+        $this->assertArrayHasKey('message', $response);
+        $this->assertEquals('Registration successful. Redirecting to login...', $response['message']);
     }
 
-    public function testRegisterFailure()
+    public function testRegisterUserAlreadyExists()
     {
-        $_POST['register'] = true;
+        // Set up POST request data for registration
         $_POST['fullname'] = 'John Doe';
         $_POST['address'] = '123 Main St';
         $_POST['dateOfBirth'] = '1990-01-01';
         $_POST['gender'] = 'male';
         $_POST['phone_number'] = '1234567890';
-        $_POST['email'] = 'john@example.com';
-        $_POST['password'] = 'short';
+        $_POST['email'] = 'johndoe@example.com';
+        $_POST['password'] = 'password123';
+        $_POST['role'] = 'user';
 
+        // Simulate a POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        // Mock emailExists to return true
+        $this->authDAL->method('emailExists')->willReturn(true);
+
+        // Capture the output
         ob_start();
         $this->authController->register();
-        $response = ob_get_clean();
+        $output = ob_get_clean();
 
-        $this->assertStringContainsString('Password must be at least 8 characters long.', $response);
-    }
+        // Decode the JSON response
+        $response = json_decode($output, true);
 
-    public function testLogout()
-    {
-        $_POST['logout'] = true;
-
-        ob_start();
-        $this->authController->logout();
-        $response = ob_get_clean();
-
-        $this->assertStringContainsString('Logged out successfully.', $response);
+        // Assertions
+        $this->assertEquals(409, http_response_code());
+        $this->assertArrayHasKey('error', $response);
+        $this->assertEquals('User with this email already exists.', $response['error']);
     }
 }
+

@@ -21,12 +21,17 @@ class AuthController
         header('Content-Type: application/json');
     
         // Ensure the request method is POST and the 'login' field exists
-        // if ($_SERVER['REQUEST_METHOD'] !== 'POST'|| !isset($_POST['login'])) {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST'|| !isset($_POST['login'])) {
             echo json_encode(['error' => 'Invalid request method.']);
             http_response_code(405);
             return;
         }
+
+        // if ($_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+        //     echo json_encode(['error' => 'Invalid request method.']);
+        //     http_response_code(405);
+        //     return;
+        // }
     
         // Sanitize email input
         $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);

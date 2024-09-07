@@ -6,6 +6,7 @@
             "app\\": "app/",
             "app\\api\\": "app/api/",
             "app\\config\\": "app/config/",
+            "app\\tests\\": "app/tests/",
             "app\\controller\\": "app/controller/",
             "app\\model\\": "app/model/",
             "app\\Helpers\\": "app/Helpers/",
@@ -22,16 +23,22 @@
     "require": {
         "php": "^8.2"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^11.4@dev"
-    },
     "scripts": {
-        "test": "phpunit --configuration phpunit.xml",
+        "test": "phpunit",
+        "test:all": "phpunit --testsuite all",
+        "test:auth": "phpunit --filter AuthControllerTest",
+        "test:auth:login": "phpunit --filter testLoginSuccess",
+        "test:auth:invalid-email": "phpunit --filter testLoginInvalidEmailFormat",
+        "test:auth:register": "phpunit --filter testRegisterSuccess",
+        "test:auth:user-exists": "phpunit --filter testRegisterUserAlreadyExists",
         "post-install-cmd": [
             "echo 'Post-installation tasks...'"
         ],
         "post-update-cmd": [
             "echo 'Post-update tasks...'"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.4@dev"
     }
 }
