@@ -1,5 +1,6 @@
 <?php
-include '../../../app/config/db.php';
+namespace app\model;
+use PDO;
 
 class AuthDAL
 {

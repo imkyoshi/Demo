@@ -257,12 +257,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ebdffc9e09585dafa71b9bffcdb0a229d4704c45"
+                "reference": "f0a48df4f605e5126fe42f5cf23b269c422e7db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ebdffc9e09585dafa71b9bffcdb0a229d4704c45",
-                "reference": "ebdffc9e09585dafa71b9bffcdb0a229d4704c45",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f0a48df4f605e5126fe42f5cf23b269c422e7db4",
+                "reference": "f0a48df4f605e5126fe42f5cf23b269c422e7db4",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
                 "ext-pcov": "PHP extension that provides line coverage",
                 "ext-xdebug": "PHP extension that provides line coverage as well as branch and path coverage"
             },
-            "time": "2024-08-22T04:37:56+00:00",
+            "time": "2024-09-05T14:53:26+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -322,7 +322,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/11.0.6"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/main"
             },
             "funding": [
                 {
@@ -599,12 +599,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "11bbe1268a8c3d3c8dda3a1bb4ae44cd61d08f8b"
+                "reference": "4c7935c10d7a5f12441fbf6968cc9c712a66057e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/11bbe1268a8c3d3c8dda3a1bb4ae44cd61d08f8b",
-                "reference": "11bbe1268a8c3d3c8dda3a1bb4ae44cd61d08f8b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4c7935c10d7a5f12441fbf6968cc9c712a66057e",
+                "reference": "4c7935c10d7a5f12441fbf6968cc9c712a66057e",
                 "shasum": ""
             },
             "require": {
@@ -637,7 +637,7 @@
             "suggest": {
                 "ext-soap": "To be able to generate mocks based on WSDL files"
             },
-            "time": "2024-08-29T09:26:22+00:00",
+            "time": "2024-09-06T09:22:29+00:00",
             "default-branch": true,
             "bin": [
                 "phpunit"

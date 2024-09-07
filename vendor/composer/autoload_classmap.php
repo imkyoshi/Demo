@@ -673,6 +673,7 @@ return array(
     'PHPUnit\\Runner\\TestSuiteSorter' => $vendorDir . '/phpunit/phpunit/src/Runner/TestSuiteSorter.php',
     'PHPUnit\\Runner\\UnsupportedPhptSectionException' => $vendorDir . '/phpunit/phpunit/src/Runner/Exception/UnsupportedPhptSectionException.php',
     'PHPUnit\\Runner\\Version' => $vendorDir . '/phpunit/phpunit/src/Runner/Version.php',
+    'PHPUnit\\TestRunner\\IssueFilter' => $vendorDir . '/phpunit/phpunit/src/Runner/IssueFilter.php',
     'PHPUnit\\TestRunner\\TestResult\\BeforeTestClassMethodErroredSubscriber' => $vendorDir . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/BeforeTestClassMethodErroredSubscriber.php',
     'PHPUnit\\TestRunner\\TestResult\\Collector' => $vendorDir . '/phpunit/phpunit/src/Runner/TestResult/Collector.php',
     'PHPUnit\\TestRunner\\TestResult\\ExecutionStartedSubscriber' => $vendorDir . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/ExecutionStartedSubscriber.php',

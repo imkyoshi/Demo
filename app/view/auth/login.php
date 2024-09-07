@@ -1,13 +1,15 @@
 <?php
 session_start();
 
+require '../../../vendor/autoload.php'; // Autoload classes via Composer
+require_once '../../../app/config/Connection.php';
 
 use app\controller\AuthController;
 use app\model\AuthDAL;
+use app\config\Connection;
 
-require '../../../app/config/db.php';
-require '../../../app/controller/AuthController.php';
-require '../../../vendor/autoload.php';
+$connection = new Connection();
+$pdo = $connection->connect();
 
 $authDAL = new AuthDAL($pdo);
 $authController = new AuthController($authDAL);

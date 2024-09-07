@@ -3,7 +3,7 @@
         'name' => 'lowell-pc/demo',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '758b5e19fc90eca5996a86941c7836fcd035cea8',
+        'reference' => '26d17bb9afa23f6dd10c4231e8d2aea9a76e371f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'lowell-pc/demo' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '758b5e19fc90eca5996a86941c7836fcd035cea8',
+            'reference' => '26d17bb9afa23f6dd10c4231e8d2aea9a76e371f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -60,7 +60,7 @@
         'phpunit/php-code-coverage' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ebdffc9e09585dafa71b9bffcdb0a229d4704c45',
+            'reference' => 'f0a48df4f605e5126fe42f5cf23b269c422e7db4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/php-code-coverage',
             'aliases' => array(
@@ -113,7 +113,7 @@
         'phpunit/phpunit' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '11bbe1268a8c3d3c8dda3a1bb4ae44cd61d08f8b',
+            'reference' => '4c7935c10d7a5f12441fbf6968cc9c712a66057e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(

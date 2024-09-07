@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
+class ComposerStaticInitf98220b7dd81e26379beeaae85045084
 {
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
@@ -12,6 +12,16 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
     );
 
     public static $prefixLengthsPsr4 = array (
+        'a' => 
+        array (
+            'app\\view\\' => 9,
+            'app\\model\\' => 10,
+            'app\\controller\\' => 15,
+            'app\\config\\' => 11,
+            'app\\api\\' => 8,
+            'app\\Helpers\\' => 12,
+            'app\\' => 4,
+        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
@@ -20,18 +30,37 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         array (
             'DeepCopy\\' => 9,
         ),
-        'A' => 
-        array (
-            'App\\model\\' => 10,
-            'App\\controller\\' => 15,
-            'App\\config\\' => 11,
-            'App\\api\\' => 8,
-            'App\\Helpers\\' => 12,
-            'App\\' => 4,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'app\\view\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/view',
+        ),
+        'app\\model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/model',
+        ),
+        'app\\controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controller',
+        ),
+        'app\\config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/config',
+        ),
+        'app\\api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/api',
+        ),
+        'app\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Helpers',
+        ),
+        'app\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -39,30 +68,6 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'App\\model\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/model',
-        ),
-        'App\\controller\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/controller',
-        ),
-        'App\\config\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/config',
-        ),
-        'App\\api\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/api',
-        ),
-        'App\\Helpers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Helpers',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
@@ -734,6 +739,7 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
         'PHPUnit\\Runner\\TestSuiteSorter' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestSuiteSorter.php',
         'PHPUnit\\Runner\\UnsupportedPhptSectionException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Exception/UnsupportedPhptSectionException.php',
         'PHPUnit\\Runner\\Version' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/Version.php',
+        'PHPUnit\\TestRunner\\IssueFilter' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/IssueFilter.php',
         'PHPUnit\\TestRunner\\TestResult\\BeforeTestClassMethodErroredSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/BeforeTestClassMethodErroredSubscriber.php',
         'PHPUnit\\TestRunner\\TestResult\\Collector' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Collector.php',
         'PHPUnit\\TestRunner\\TestResult\\ExecutionStartedSubscriber' => __DIR__ . '/..' . '/phpunit/phpunit/src/Runner/TestResult/Subscriber/ExecutionStartedSubscriber.php',
@@ -1268,9 +1274,9 @@ class ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4f4b7e94d95e2150060e392145ed8ff9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf98220b7dd81e26379beeaae85045084::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf98220b7dd81e26379beeaae85045084::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf98220b7dd81e26379beeaae85045084::$classMap;
 
         }, null, ClassLoader::class);
     }

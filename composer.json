@@ -2,12 +2,13 @@
     "name": "lowell-pc/demo",
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "App\\api\\": "app/api/",
-            "App\\config\\": "app/config/",
-            "App\\controller\\": "app/controller/",
-            "App\\Helpers\\": "app/Helpers/",
-            "App\\model\\": "app/model/"
+            "app\\": "app/",
+            "app\\api\\": "app/api/",
+            "app\\config\\": "app/config/",
+            "app\\controller\\": "app/controller/",
+            "app\\model\\": "app/model/",
+            "app\\Helpers\\": "app/Helpers/",
+            "app\\view\\": "app/view/"
         }
     },
     "authors": [

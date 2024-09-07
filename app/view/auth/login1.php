@@ -1,17 +1,24 @@
 <?php
 session_start();
-require '../../../app/config/db.php';
-require '../../../app/controller/AuthController.php';
+
+require '../../../vendor/autoload.php'; // Correct autoload
+
+use app\config\Connection;
+use app\controller\AuthController;
+use app\model\AuthDAL;
+
+$connection = new Connection();
+$pdo = $connection->connect(); // Establish the database connection
 
 $authDAL = new AuthDAL($pdo);
 $authController = new AuthController($authDAL);
 
-// Handle registration request
+// Handle login request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController->login();
 }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="author" content="Muhamad Nauval Azhar">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="This is a login page template based on Bootstrap 5">
-    <title>DEMO|Login Page</title>
+    <title>DEMO | Login Page</title>
     <link href="../../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -31,13 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container h-100">
             <div class="row justify-content-sm-center h-100">
                 <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                    <div class="text-center my-5">
-                        <img src="../../../public/img/st 3.png" alt="logo"
-                            width="150">
+                    <div class="my-5 text-center">
+                        <img src="../../../public/img/st 3.png" alt="logo" width="150">
                     </div>
-                    <div class="card shadow-lg">
-                        <div class="card-body p-5">
-                            <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+                    <div class="shadow-lg card">
+                        <div class="p-5 card-body">
+                            <h1 class="mb-4 fs-4 card-title fw-bold">Login</h1>
+
+                            <!-- Display session alert messages using SweetAlert2 -->
+                            <?php if (isset($_SESSION['alert'])): ?>
+                                <script>
+                                    Swal.fire({
+                                        icon: "<?php echo $_SESSION['alert']['type']; ?>",
+                                        title: "<?php echo $_SESSION['alert']['message']; ?>",
+                                    });
+                                </script>
+                                <?php unset($_SESSION['alert']); ?>
+                            <?php endif; ?>
+
                             <form method="POST" action="" class="needs-validation" novalidate="" autocomplete="on">
                                 <div class="mb-3">
                                     <label class="mb-2 text-muted" for="email">E-Mail Address</label>
@@ -71,20 +89,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </form>
                         </div>
-                        <div class="card-footer py-3 border-0">
+                        <div class="py-3 border-0 card-footer">
                             <div class="text-center">
                                 Don't have an account? <a href="register.php" class="text-dark">Create One</a>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-5 text-muted">
+                    <div class="mt-5 text-center text-muted">
                         Copyright &copy; 2024 &mdash; Your Company
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <?php require '../../view/auth/include/script.php';?>
+    <?php require '../../view/auth/include/script.php'; ?>
 </body>
 
 </html>
