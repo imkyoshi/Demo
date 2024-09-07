@@ -33,13 +33,16 @@ class Cookies
 
     public function encrypt($data)
     {
-        $iv = substr($this->encryptionKey, 0, 16); // Use the first 16 bytes of the key as IV
-        return openssl_encrypt($data, 'aes-256-cbc', $this->encryptionKey, 0, $iv);
+        $cipher = 'aes-256-cbc';
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+        $encryptedData = openssl_encrypt($data, $cipher, $this->encryptionKey, 0, $iv);
+        return base64_encode($encryptedData . '::' . $iv);
     }
 
     public function decrypt($data)
     {
-        $iv = substr($this->encryptionKey, 0, 16); // Use the first 16 bytes of the key as IV
-        return openssl_decrypt($data, 'aes-256-cbc', $this->encryptionKey, 0, $iv);
+        $cipher = 'aes-256-cbc';
+        list($encryptedData, $iv) = explode('::', base64_decode($data), 2);
+        return openssl_decrypt($encryptedData, $cipher, $this->encryptionKey, 0, $iv);
     }
 }

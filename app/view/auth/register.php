@@ -1,30 +1,29 @@
 <?php
 session_start();
 
-require '../../../vendor/autoload.php'; // Correct autoload
+require '../../../vendor/autoload.php'; // Autoload classes via Composer
+require_once '../../../app/config/Connection.php';
 
-use app\config\Connection;
 use app\controller\AuthController;
 use app\model\AuthDAL;
+use app\config\Connection;
 
 $connection = new Connection();
-$pdo = $connection->connect(); // Establish the database connection
+$pdo = $connection->connect();
 
 $authDAL = new AuthDAL($pdo);
 $authController = new AuthController($authDAL);
 
-// Handle login request
+// Handle registration request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $authController->login();
+    $authController->register();
+    exit;
 }
-
 ?>
-
-<?php require '../../view/auth/layout/header.php'; ?>
+<?php require '../auth/layout/header.php'; ?>
 
     <!-- Left Cover Image with Lorem Ipsum -->
-    <div class="items-center justify-center hidden w-full bg-center bg-cover cover md:w-1/2 md:flex"
-        style="background-image: url('../../../public/img/schol2.png');">
+    <div class="items-center justify-center hidden w-full bg-center bg-cover cover md:w-1/2 md:flex" style="background-image: url('../../../public/img/schol2.png');">
         <div class="px-6 text-center text-white">
             <!-- <h1 class="mb-4 text-4xl font-bold">Welcome to Our Service</h1>
             <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p> -->
@@ -33,12 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Right Login Form -->
     <div class="flex items-center justify-center w-full p-6 login-form-container md:w-1/2 bg-white-100 md:p-12">
-        <div class="w-full max-w-lg login-form">
+        <div class="w-full max-w-lg login-form max-h-md">
             <div class="mb-10 text-center">
                 <!-- Brand Logo with Responsive Size -->
                 <img src="../../../public/img/st 3.png" alt="Brand Logo" class="w-24 mx-auto mb-4 md:w-36">
-                <h2 class="mb-6 text-2xl font-bold">Register</h2>
-                <hr class="drop-shadow-md">
+                <h2 class="mb-6 text-2xl font-bold">Login</h2><hr class="drop-shadow-md">
             </div>
             <form id="registerForm" action="register.php" method="POST">
                 <div class="grid grid-cols-1 gap-4 mb-2 md:grid-cols-2">
@@ -67,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="date" id="dateOfBirth" name="dateOfBirth"
                             class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"
                             required>
+                            <div id="emailFeedback" class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
@@ -82,15 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email"
-                        class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"
-                        required>
+                    <input type="email" id="email" name="email"class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"required>
+                    <div id="emailFeedback" class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" name="password"
                         class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"
                         required>
+                        <div id="emailFeedback" class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
 
                 <!-- Terms and Agreement Modal Trigger -->
@@ -111,5 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-    <?php require '../../view/auth/layout/modal.php'; ?>
-    <?php require '../../view/auth/layout/footer.php'; ?>
+    <?php require '../auth/layout/apiRegister.php'; ?>
+    <?php require '../auth/layout/modal.php'; ?>
+<?php require '../auth/layout/footer.php'; ?>

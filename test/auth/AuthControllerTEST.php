@@ -1,7 +1,11 @@
 <?php
+require '../../app/model/AuthDAL.php';
+require '../../app/controller/AuthController.php';
+
 use PHPUnit\Framework\TestCase;
-require '../Demo/app/model/AuthDAL.php';
-require '../Demo/app/controller/AuthController.php';
+use app\model\AuthDAL;
+use app\controller\AuthController;
+
 
 class AuthControllerTest extends TestCase
 {
@@ -23,9 +27,9 @@ class AuthControllerTest extends TestCase
 
         $user = ['id' => 1, 'role' => 'admin'];
         $this->authDAL->method('authenticateUser')
-                      ->willReturn($user);
+            ->willReturn($user);
         $this->authDAL->method('emailExists')
-                      ->willReturn(false);
+            ->willReturn(false);
 
         ob_start();
         $this->authController->login();
@@ -41,7 +45,7 @@ class AuthControllerTest extends TestCase
         $_POST['password'] = 'wrongpassword';
 
         $this->authDAL->method('authenticateUser')
-                      ->willReturn(false);
+            ->willReturn(false);
 
         ob_start();
         $this->authController->login();
@@ -62,9 +66,9 @@ class AuthControllerTest extends TestCase
         $_POST['password'] = 'password123';
 
         $this->authDAL->method('emailExists')
-                      ->willReturn(false);
+            ->willReturn(false);
         $this->authDAL->method('registerUser')
-                      ->willReturn(true);
+            ->willReturn(true);
 
         ob_start();
         $this->authController->register();

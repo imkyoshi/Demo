@@ -14,9 +14,10 @@ $pdo = $connection->connect();
 $authDAL = new AuthDAL($pdo);
 $authController = new AuthController($authDAL);
 
-// Handle registration request
+// Handle login request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController->login();
+    exit;
 }
 ?>
 <?php require '../auth/layout/header.php'; ?>
@@ -60,4 +61,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+    <?php require '../auth/layout/apiLogin.php'; ?>
 <?php require '../auth/layout/footer.php'; ?>

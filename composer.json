@@ -1,5 +1,6 @@
 {
     "name": "lowell-pc/demo",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "app\\": "app/",
@@ -8,7 +9,7 @@
             "app\\controller\\": "app/controller/",
             "app\\model\\": "app/model/",
             "app\\Helpers\\": "app/Helpers/",
-            "app\\view\\": "app/view/"
+            "app\\view\\auth\\": "app/view/auth/"
         }
     },
     "authors": [

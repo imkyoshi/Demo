@@ -1,19 +1,18 @@
 <!-- Modal -->
 <div id="termsModal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg w-10/11 md:w-1/2 lg:w-1/3 max-h-[80vh] overflow-y-scroll relative">
-            <!-- Close Button -->
-            <button id="closeModal" class="absolute top-7 right-4 text-black-500 hover:text-red-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="mb-6 text-2xl font-bold">Terms and Agreement for Data Privacy</h2>
-            <hr>
-            <p class="mt-4 text-sm text-gray-700">
-                <!-- Terms and Agreement content -->
-                Effective Date: [Insert Date]
-                <br><br>
+    <div class="bg-white p-6 rounded-lg w-10/11 md:w-1/2 lg:w-1/3 max-h-[80vh] overflow-y-scroll relative">
+        <!-- Close Button -->
+        <button id="closeModal" class="absolute top-7 right-4 text-black-500 hover:text-red-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <h2 class="mb-6 text-2xl font-bold">Terms and Agreement for Data Privacy</h2>
+        <hr>
+        <p class="mt-4 text-sm text-gray-700">
+            <!-- Terms and Agreement content -->
+            Effective Date: [Insert Date]
+            <br><br>
             <p class="mb-2 text-lg font-bold">1. Introduction</p>
             By registering on this website, you agree to our collection, use, and disclosure of your personal
             information as described in this Terms and Agreement for Data Privacy. We are committed to protecting your
