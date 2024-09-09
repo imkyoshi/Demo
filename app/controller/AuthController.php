@@ -108,7 +108,6 @@ class AuthController
     public function register()
     {
         header('Content-Type: application/json');
-
         // Sanitize inputs
         $fullname = htmlspecialchars(trim($_POST['fullname']));
         $address = htmlspecialchars(trim($_POST['address']));
@@ -118,35 +117,46 @@ class AuthController
         $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
         $password = trim($_POST['password']);
         $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : 'user';
-
+    
         if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
             echo json_encode(['error' => 'All fields are required.']);
             http_response_code(400);
             exit;
         }
-
+    
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo json_encode(['error' => 'Invalid email format.']);
             http_response_code(400);
             exit;
         }
-
+    
         if (strlen($password) < 8) {
             echo json_encode(['error' => 'Password must be at least 8 characters long.']);
             http_response_code(400);
             exit;
         }
-
+    
         if ($this->authDAL->emailExists($email)) {
             echo json_encode(['error' => 'User with this email already exists.']);
             http_response_code(409);
             exit;
         }
-
+    
         // Register the user
         $result = $this->authDAL->registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role);
         if ($result) {
-            echo json_encode(['message' => 'Registration successful. Redirecting to login...', 'redirect' => 'login.php']);
+            // Generate a token for password reset purposes
+            $resetToken = bin2hex(random_bytes(32));
+            $this->authDAL->storePasswordResetToken($email, $resetToken);
+
+            header('Content-Type: text/html');
+            // Create a response
+            $response = [
+                'message' => 'Registration successful. Redirecting to login...',
+                'redirect' => 'login.php',
+                'resetToken' => $resetToken,
+            ];
+            echo json_encode($response);
             http_response_code(201);
         } else {
             echo json_encode(['error' => 'Failed to register user.']);
