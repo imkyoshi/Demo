@@ -1,14 +1,14 @@
 <?php
 namespace test\auth;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
-use PHPUnit\Framework\TestCase;
+// use TestCase;
 use app\controller\AuthController;
 use app\model\AuthDAL;
 use app\Helpers\Cookies;
 
-class AuthControllerTest extends TestCase
+class AuthControllerTest extends \PHPUnit\Framework\TestCase
 {
     private $authDAL;
     private $cookies;

@@ -3,7 +3,7 @@
         'name' => 'lowell-pc/demo',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '01245b01206fdff770226efcd02a7710c55ac8a9',
+        'reference' => '3c69ea83c65fe5122c5ccdc17e7420f81b53e7b9',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'lowell-pc/demo' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '01245b01206fdff770226efcd02a7710c55ac8a9',
+            'reference' => '3c69ea83c65fe5122c5ccdc17e7420f81b53e7b9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -115,7 +115,7 @@
         'phpunit/phpunit' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'adf855ac00a9b84e5d9320242d0ff428cac24309',
+            'reference' => '18471e26375967877dea6cb1728ef3ad4c62900b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(

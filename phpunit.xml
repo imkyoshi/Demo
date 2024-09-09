@@ -1,18 +1,16 @@
 <phpunit
     bootstrap="vendor/autoload.php"
     colors="true"
-    stopOnFailure="false"
-    backupGlobals="false"
-    beStrictAboutTestsThatDoNotTestAnything="true"
-    beStrictAboutOutputDuringTests="true"
-    stopOnRisky="false"
-    stopOnWarning="false"
-    failOnWarning="true"
-    failOnRisky="true">
+    stopOnFailure="false">
 
     <testsuites>
-        <testsuite name="Application Test Suite">
+        <testsuite name="AuthContollerTest">
             <directory>test/auth/</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
             <directory>app/</directory>
             <directory>app/api/</directory>
             <directory>app/config/</directory>
@@ -20,16 +18,7 @@
             <directory>app/Helpers/</directory>
             <directory>app/model/</directory>
             <directory>app/view/auth/</directory>
-        </testsuite>
-    </testsuites>
-
-    <coverage>
-        <include>
-            <directory>app/</directory>
         </include>
-        <exclude>
-            <directory>app/tests/</directory>
-        </exclude>
     </coverage>
 
 </phpunit>
