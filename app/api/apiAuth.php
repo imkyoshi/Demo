@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use app\config\Connection; // My DB Connection
 use app\model\AuthDAL; // My Data Layer
 use app\controller\AuthController; // My Controller
+use app\Helpers\Cookies;
 
 header("Content-Type: application/json");
 
@@ -15,7 +16,8 @@ $connection = new Connection();
 $pdo = $connection->connect();
 
 $authDAL = new AuthDAL($pdo);
-$authController = new AuthController($authDAL);
+$cookies = new Cookies();
+$authController = new AuthController($authDAL, $cookies);
 
 error_log('Received request method: ' . $requestMethod);
 error_log('Received POST data: ' . print_r($_POST, true));

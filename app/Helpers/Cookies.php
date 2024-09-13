@@ -3,9 +3,9 @@ namespace app\Helpers;
 
 class Cookies
 {
-    private $encryptionKey = 's0PoPnnVj4poBwZJGboiyD9Gxc/gXPWxnRf16AtcHLM=';
+    private string $encryptionKey = 's0PoPnnVj4poBwZJGboiyD9Gxc/gXPWxnRf16AtcHLM=';
 
-    public function initializeSession()
+    public function initializeSession(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_set_cookie_params([
@@ -14,7 +14,7 @@ class Cookies
                 'domain' => '', // Use your domain here
                 'secure' => true,
                 'httponly' => true,
-                'samesite' => 'Strict'
+                'same-site' => 'Strict'
             ]);
 
             session_start();
@@ -31,15 +31,19 @@ class Cookies
         $_SESSION['LAST_ACTIVITY'] = time();
     }
 
-    public function encrypt($data)
+    public function encrypt($data): string
     {
         $cipher = 'aes-256-cbc';
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
         $encryptedData = openssl_encrypt($data, $cipher, $this->encryptionKey, 0, $iv);
+        if ($encryptedData === false) {
+            throw new \RuntimeException('Encryption failed.');
+        }
         return base64_encode($encryptedData . '::' . $iv);
     }
 
-    public function decrypt($data)
+
+    public function decrypt($data): false|string
     {
         $cipher = 'aes-256-cbc';
         list($encryptedData, $iv) = explode('::', base64_decode($data), 2);

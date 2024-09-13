@@ -34,7 +34,7 @@
             "request": "launch",
             "port": 9003,
             "pathMappings": {
-            "/path/to/your/project": "${workspaceFolder}"
+            "/tests": "${workspaceFolder}"
             }
         }
     ]

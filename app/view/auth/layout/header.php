@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link href="../../../../demo/public/css/tailwind.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <script src="../../../../public/js/alert.js" defer></script>
     <style>
         .invalid-feedback {
             display: none;

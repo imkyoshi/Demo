@@ -2,13 +2,11 @@
     bootstrap="vendor/autoload.php"
     colors="true"
     stopOnFailure="false">
-
     <testsuites>
         <testsuite name="AuthContollerTest">
-            <directory>test/auth/</directory>
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
-
     <coverage>
         <include>
             <directory>app/</directory>
@@ -20,5 +18,4 @@
             <directory>app/view/auth/</directory>
         </include>
     </coverage>
-
 </phpunit>

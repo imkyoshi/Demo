@@ -3,10 +3,10 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
+            "tests\\": "tests/",
             "app\\": "app/",
             "app\\api\\": "app/api/",
             "app\\config\\": "app/config/",
-            "app\\tests\\": "app/tests/",
             "app\\controller\\": "app/controller/",
             "app\\model\\": "app/model/",
             "app\\Helpers\\": "app/Helpers/",
@@ -21,7 +21,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+      "ext-openssl": "*",
+      "ext-pdo": "*"
     },
     "scripts": {
         "test": "phpunit",

@@ -1,12 +1,8 @@
 <?php
-// Include the database configuration and AuthDAL class if needed
-// require '../app/config/db.php';
-// require '../app/model/AuthDAL.php';
 
-session_start();
-// Destroy the session
 session_unset();
 session_destroy();
+
 
 // Optionally, you can also delete the session cookie
 if (ini_get("session.use_cookies")) {

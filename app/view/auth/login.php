@@ -7,20 +7,22 @@ require_once '../../../app/config/Connection.php';
 use app\controller\AuthController;
 use app\model\AuthDAL;
 use app\config\Connection;
+use app\Helpers\Cookies; // Make sure to include the Cookies class
 
 $connection = new Connection();
 $pdo = $connection->connect();
 
 $authDAL = new AuthDAL($pdo);
-$authController = new AuthController($authDAL);
+$cookies = new Cookies();
+$authController = new AuthController($authDAL, $cookies);
 
 // Handle login request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController->login();
     exit;
 }
 ?>
-<?php require '../auth/layout/header.php'; ?>
+<?php require '../auth/layout/header.php';?>
 
     <!-- Left Cover Image with Lorem Ipsum -->
     <div class="items-center justify-center hidden w-full bg-center bg-cover cover md:w-1/2 md:flex" style="background-image: url('../../../public/img/schol2.png');">
@@ -29,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p> -->
         </div>
     </div>
-
     <!-- Right Login Form -->
     <div class="flex items-center justify-center w-full p-6 login-form-container md:w-1/2 bg-white-100 md:p-12">
         <div class="w-full max-w-lg login-form max-h-md">
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="../../../public/img/st 3.png" alt="Brand Logo" class="w-24 mx-auto mb-4 md:w-36">
                 <h2 class="mb-6 text-2xl font-bold">Login</h2><hr class="drop-shadow-md">
             </div>
-            <form id="loginForm" action="../../api/apiAuth.php" method="POST">
+            <form id="loginForm" action="" method="POST">
                 <div class="mb-4">
                     <label for="email" class="block font-medium text-gray-700 text-md">Email</label>
                     <input type="email" id="email" name="email" class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500" required>
@@ -61,5 +62,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-    <?php require '../auth/layout/apiLogin.php'; ?>
-<?php require '../auth/layout/footer.php'; ?>
+   <?php require '../../api/ApiScripts/apiLogin.php';?>
+<?php require '../auth/layout/footer.php';?>

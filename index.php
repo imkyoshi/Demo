@@ -1,24 +1,21 @@
 <?php
 
 // Autoload necessary classes (you can adjust this based on your autoload setup)
-require 'app/config/Connection.php';
-require 'app/controller/AuthController.php';
-require 'app/model/AuthDAL.php';
-require 'app/Helpers/Cookies.php';
+
+use app\config\Connection;
+use app\model\AuthDAL;
+use app\controller\AuthController;
+use app\Helpers\Cookies;
 
 // Parse URL
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 $path = $request_uri[0];
 
-// Set up dependencies
-use app\controller\AuthController;
-use app\model\AuthDAL;
-use app\config\Connection;
-
 $connection = new Connection();
 $pdo = $connection->connect();
 $authDAL = new AuthDAL($pdo);
-$authController = new AuthController($authDAL);
+$cookies = new Cookies();
+$authController = new AuthController($authDAL, $cookies);
 
 // Routing logic
 switch ($path) {

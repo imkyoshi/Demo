@@ -1,4 +1,27 @@
-vendor/
-node_modules/
-*.log
+# Composer dependencies
+/vendor/
+
+# NPM dependencies
+/node_modules/
+
+# Environment configuration
 .env
+
+# PHPUnit cache and result files
+.phpunit.result.cache
+/coverage/
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor directories
+.vscode/
+.idea/
+
+# OS-specific files
+*.swp
+*.swo

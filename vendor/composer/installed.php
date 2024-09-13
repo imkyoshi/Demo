@@ -3,7 +3,7 @@
         'name' => 'lowell-pc/demo',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3c69ea83c65fe5122c5ccdc17e7420f81b53e7b9',
+        'reference' => '236823278c0782583a7b35f43e47865bdb1a0b92',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'lowell-pc/demo' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3c69ea83c65fe5122c5ccdc17e7420f81b53e7b9',
+            'reference' => '236823278c0782583a7b35f43e47865bdb1a0b92',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

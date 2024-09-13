@@ -1,6 +1,5 @@
 <?php
 namespace app\model;
-
 use PDO;
 
 class AuthDAL
@@ -11,7 +10,7 @@ class AuthDAL
     {
         $this->pdo = $pdo;
     }
-
+    // Authenticate the user before loggin in
     public function authenticateUser($email, $password)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
@@ -24,7 +23,7 @@ class AuthDAL
         }
         return false;
     }
-
+    // Check the if the email already exists
     public function emailExists($email)
     {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
@@ -32,7 +31,7 @@ class AuthDAL
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
-
+    // Register the Users
     public function registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role = 'user')
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -49,8 +48,7 @@ class AuthDAL
 
         return $stmt->execute();
     }
-
-    // Store password reset token
+    // Forgot password
     public function storePasswordResetToken($email, $resetToken)
     {
         $expiresAt = new \DateTime('+1 hour');
@@ -63,7 +61,7 @@ class AuthDAL
     }
 
     // Validating password reset token
-    public function validateResetToken($token)
+    public function validateResetToken($token): mixed
     {
         $stmt = $this->pdo->prepare("SELECT email FROM password_resets WHERE token = :token AND expires_at > NOW()");
         $stmt->bindParam(':token', $token, PDO::PARAM_STR);
@@ -80,12 +78,10 @@ class AuthDAL
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         return $stmt->execute();
     }
-
     // Deleteting Expire Token
     public function deleteExpiredTokens()
     {
         $stmt = $this->pdo->prepare("DELETE FROM password_resets WHERE expires_at < NOW()");
         return $stmt->execute();
     }
-
 }
