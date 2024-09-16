@@ -10,7 +10,7 @@
 <script src="../../../public/js/bootstrap.bundle.min.js"></script>
 
 <script src="../../../public/plugins/apexchart/apexcharts.min.js"></script>
-<!-- <script src="../../../public/plugins/apexchart/chart-data.js"></script>-->
+<script src="../../../public/plugins/apexchart/chart-data.js"></script>
 <script src="../../../public/js/testScript.js"></script>
 <script src="../../../public/js/script.js"></script>
 </body>

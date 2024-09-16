@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/demo/node_modules/sweetalert2/dist/sweetalert2.min.css">
     <link href="../../../../demo/public/css/tailwind.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../../../public/js/alert.js" defer></script>
     <style>
         .invalid-feedback {
             display: none;
@@ -18,8 +17,6 @@
         .invalid-feedback.show {
             display: block;
         }
-
-
 
         @media (max-width: 768px) {
             .cover {

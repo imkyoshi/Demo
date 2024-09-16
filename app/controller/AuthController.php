@@ -38,12 +38,14 @@ class AuthController
         // Validate input values
         if (empty($email) || empty($password)) {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
-            return;
+            header("Location: ../auth/login.php");
+            exit;
         }
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
-            return;
+            header("Location: ../auth/login.php");
+            exit;
         }
         // Authenticate user
         $user = $this->authDAL->authenticateUser($email, $password);
@@ -58,7 +60,6 @@ class AuthController
             $encryptedToken = $this->cookies->encrypt($token);
             session_regenerate_id(true);
             setcookie('auth_token', $encryptedToken, time() + 86400 * 30, "/", "", true, true);
-
             // Remember Cookies
             if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
                 $cookieExpiration = time() + 30 * 24 * 60 * 60;
@@ -67,22 +68,21 @@ class AuthController
             } else {
                 setcookie('user_email', '', time() - 3600, '/', '', true, true);
             }
-
+            
             // Redirect based on role
             $redirectMap = [
                 'admin' => '../admin/dashboard.php',
                 'officer' => '../officer/dashboard.php',
                 'user' => '../user/dashboard.php',
             ];
-             //$encryptedRedirectUrl = $this->cookies->encrypt($redirectUrl);
+
             $redirectUrl = $redirectMap[$user['role']] ?? '../user/dashboard.php';
             $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
             header("Location: $redirectUrl");
             exit;
         } else {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'Wrong email or password.'];
-            // Optionally, you can redirect to the login page to show the error message
-            header("Location: ../login.php");
+            header("Location: ../auth/login.php");
             exit;
         }
     }
@@ -108,22 +108,26 @@ class AuthController
         // Validate input values
         if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'All fields are required.'];
-            return;
+            header("Location: ../auth/login.php");
+            exit;
         }
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'Invalid email format.'];
-            return;
+            header("Location: ../auth/login.php");
+            exit;
         }
         // Password must be at least 8 characters long
         if (strlen($password) < 8) {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'Password must be at least 8 characters long.'];
-            return;
+            header("Location: ../auth/login.php");
+            exit;
         }
         // Check if the email already exists in the database
         if ($this->authDAL->emailExists($email)) {
-            $_SESSION['alert'] = ['type' => 'error', 'message' => 'User with this email already exists.'];
-            return;
+            $_SESSION['alert'] = ['type' => 'error', 'message' => 'The user with this email already exists.'];
+            header("Location: ../auth/login.php");
+            exit;
         }
 
         // Register the user if all validations pass
@@ -136,6 +140,8 @@ class AuthController
             exit;
         } else {
             $_SESSION['alert'] = ['type' => 'error', 'message' => 'Failed to register user.'];
+            header("Location: ../auth/login.php");
+            exit;
         }
     }
 
@@ -146,7 +152,7 @@ class AuthController
         session_unset();
         session_destroy();
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Logged out successfully.'];
-        header('Location: login.php');
+        header("Location: ../auth/login.php");
         exit;
     }
 }

@@ -42,12 +42,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             <form id="loginForm" action="" method="POST">
                 <div class="mb-4">
                     <label for="email" class="block font-medium text-gray-700 text-md">Email</label>
-                    <input type="email" id="email" name="email" class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500" required>
+                    <input type="email" id="email" name="email" autocomplete="on"  class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500">
                     <div id="emailFeedback" class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block font-medium text-gray-700 text-md">Password</label>
-                    <input type="password" id="password" name="password" class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500" required>
+                    <input type="password" id="password" name="password" autocomplete="on" class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500">
                     <div id="passwordFeedback" class="invalid-feedback">Password is required.</div>
                 </div>
                 <div class="flex items-center mb-4">
@@ -62,5 +62,5 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             </form>
         </div>
     </div>
-   <?php require '../../api/ApiScripts/apiLogin.php';?>
+<?php require '../../api/ApiScripts/apiLogin.php';?>
 <?php require '../auth/layout/footer.php';?>

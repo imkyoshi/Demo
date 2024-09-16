@@ -13,7 +13,7 @@ class AuthDAL
     // Authenticate the user before loggin in
     public function authenticateUser($email, $password)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt = $this->pdo->prepare("SELECT id, password, role FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,7 +23,7 @@ class AuthDAL
         }
         return false;
     }
-    // Check the if the email already exists
+    // Check if the email already exists
     public function emailExists($email)
     {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");

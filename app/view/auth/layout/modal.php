@@ -15,7 +15,7 @@
             <br><br>
             <p class="mb-2 text-lg font-bold">1. Introduction</p>
             By registering on this website, you agree to our collection, use, and disclosure of your personal
-            information as described in this Terms and Agreement for Data Privacy. We are committed to protecting your
+            information as described in these Terms and Agreement for Data Privacy. We are committed to protecting your
             privacy and ensuring that your personal information is handled in a safe and responsible manner.
             <br><br>
             <p class="mb-2 text-lg font-bold">2. Information We Collect</p>
@@ -53,12 +53,12 @@
             The right to withdraw your consent to our processing of your personal information.
             <br><br>
             <p class="mb-2 text-lg font-bold">8. Changes to This Agreement</p>
-            We may update this Terms and Agreement for Data Privacy from time to time. Any changes will be posted on
+            We may update these Terms and Agreement for Data Privacy from time to time. Any changes will be posted on
             this page, and the effective date will be updated accordingly. We encourage you to review this agreement
             periodically to stay informed about how we are protecting your information.
             <br><br>
             <p class="mb-2 text-lg font-bold">9. Contact Us</p>
-            If you have any questions or concerns about this Terms and Agreement for Data Privacy, please contact us at
+            If you have any questions or concerns about these Terms and Agreement for Data Privacy, please contact us at
             [Insert Contact Information].
             <br><br>
             By clicking <span class="text-sm font-bold">"I Agree"</span> and continuing with the registration process,

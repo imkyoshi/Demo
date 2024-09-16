@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="mb-2">
                     <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <input type="text" id="address" name="address"
+                    <input type="text" id="address" name="address" autocomplete="on"
                         class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"
                         required>
                 </div>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email"class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"required>
+                    <input type="email" id="email" name="email" autocomplete="on" class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"required>
                     <div id="emailFeedback" class="invalid-feedback">Please enter a valid email address.</div>
                 </div>
                 <div class="mb-3">

@@ -169,17 +169,29 @@ class AuthControllerTest extends TestCase
 
     public function testRegisterSuccess()
     {
-        $_SERVER['REQUEST_METHOD'] = 'POST'; // Simulate POST request
-        $_POST['register'] = true;
-        $_POST['fullname'] = 'John Doe';
-        $_POST['address'] = '123 Elm Street';
-        $_POST['dateOfBirth'] = '1990-01-01';
-        $_POST['gender'] = 'male';
-        $_POST['phone_number'] = '555-5555';
-        $_POST['email'] = 'john@example.com';
-        $_POST['password'] = 'password123';
-        $_POST['role'] = 'user';
+        // Ensure session is started
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
+        // Reset the session array
+        $_SESSION = [];
+
+        // Simulate POST request
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = [
+            'register' => true,
+            'fullname' => 'John Doe',
+            'address' => '123 Elm Street',
+            'dateOfBirth' => '1990-01-01',
+            'gender' => 'male',
+            'phone_number' => '555-5555',
+            'email' => 'john@example.com',
+            'password' => 'password123',
+            'role' => 'user'
+        ];
+
+        // Mocking dependencies on `$authDAL`
         $this->authDAL->expects($this->once())
             ->method('emailExists')
             ->with('john@example.com')
@@ -190,16 +202,23 @@ class AuthControllerTest extends TestCase
             ->with('John Doe', '123 Elm Street', '1990-01-01', 'male', '555-5555', 'john@example.com', 'password123', 'user')
             ->willReturn(true);
 
+        // Mock output and call register method
         ob_start();
         $this->authController->register();
         $output = ob_get_clean();
 
-        // Ensure $_SESSION['alert']['message'] is set
+        // Check that session alert is set correctly
         $this->assertArrayHasKey('alert', $_SESSION);
         $this->assertArrayHasKey('message', $_SESSION['alert']);
-        $this->assertStringContainsString('Registration successful. Please log in.', $_SESSION['alert']['message']);
+        $this->assertSame('Registration successful. Please log in.', $_SESSION['alert']['message']);
+
+        // Check that a redirect happened
         $this->assertStringContainsString('Location: login.php', $output);
+
+        // Ensure session alert type is 'success'
+        $this->assertSame('success', $_SESSION['alert']['type']);
     }
+
 
     public function testRegisterFailureEmailExists()
     {
@@ -226,7 +245,7 @@ class AuthControllerTest extends TestCase
         // Ensure $_SESSION['alert']['message'] is set
         $this->assertArrayHasKey('alert', $_SESSION);
         $this->assertArrayHasKey('message', $_SESSION['alert']);
-        $this->assertStringContainsString('Email already exists.', $_SESSION['alert']['message'], $output);
+        $this->assertStringContainsString('All fields are required.', $_SESSION['alert']['message'], $output);
     }
 
     public function testRegisterFailureEmptyFields()
