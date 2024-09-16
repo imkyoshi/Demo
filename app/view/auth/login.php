@@ -7,11 +7,12 @@ require_once '../../../app/config/Connection.php';
 use app\controller\AuthController;
 use app\model\AuthDAL;
 use app\config\Connection;
-use app\Helpers\Cookies; // Make sure to include the Cookies class
-
+use app\Helpers\Cookies;
+//Establish Database Connection
 $connection = new Connection();
 $pdo = $connection->connect();
 
+//Fetch the Controller,Model And Helpers
 $authDAL = new AuthDAL($pdo);
 $cookies = new Cookies();
 $authController = new AuthController($authDAL, $cookies);
@@ -21,15 +22,30 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     $authController->login();
     exit;
 }
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    // Redirect based on role
+    $redirectMap = [
+        'admin' => '../admin/dashboard.php',
+        'officer' => '../officer/dashboard.php',
+        'user' => '../user/dashboard.php',
+    ];
+
+    $role = $_SESSION['role'] ?? 'user';
+    $redirectUrl = $redirectMap[$role] ?? '../user/dashboard.php';
+    header("Location: $redirectUrl");
+    exit;
+}
 ?>
 <?php require '../auth/layout/header.php';?>
 
     <!-- Left Cover Image with Lorem Ipsum -->
     <div class="items-center justify-center hidden w-full bg-center bg-cover cover md:w-1/2 md:flex" style="background-image: url('../../../public/img/schol2.png');">
-        <div class="px-6 text-center text-white">
-            <!-- <h1 class="mb-4 text-4xl font-bold">Welcome to Our Service</h1>
-            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p> -->
-        </div>
+        <!-- <div class="px-6 text-center text-white">
+            <h1 class="mb-4 text-4xl font-bold">Welcome to Our Service</h1>
+            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p>
+        </div> -->
     </div>
     <!-- Right Login Form -->
     <div class="flex items-center justify-center w-full p-6 login-form-container md:w-1/2 bg-white-100 md:p-12">

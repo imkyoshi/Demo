@@ -12,7 +12,7 @@
 
     // Function to fetch data based on the selected year
     function fetchSalesData(year) {
-        fetch('path_to_controller/TestController.php', {
+        fetch('/demo/app/controller/TestController.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ 'year': year })
@@ -43,7 +43,7 @@
             legend: { position: "right", offsetY: 40 },
             fill: { opacity: 1 },
         };
-        var chart = new ApexCharts(document.querySelector("#sales_charts"), options);
+        var chart = new ApexCharts(document.querySelector("#sales_chartsss"), options);
         chart.render();
     }
 

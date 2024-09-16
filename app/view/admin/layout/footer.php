@@ -13,6 +13,7 @@
 <script src="../../../public/plugins/apexchart/chart-data.js"></script>
 <script src="../../../public/js/testScript.js"></script>
 <script src="../../../public/js/script.js"></script>
+<script src="/demo/public/js/inspect.js"></script>
 </body>
 
 </html>

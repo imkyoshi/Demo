@@ -1,3 +1,27 @@
+<?php
+session_start();
+require '../../../vendor/autoload.php'; // Autoload classes via Composer
+require_once '../../../app/config/Connection.php';
+
+use app\controller\AuthController;
+use app\model\AuthDAL;
+use app\config\Connection;
+use app\Helpers\Cookies;
+
+$connection = new Connection();
+$pdo = $connection->connect();
+
+//Fetch the Controller,Model And Helpers
+$authDAL = new AuthDAL($pdo);
+$cookies = new Cookies();
+$authController = new AuthController($authDAL, $cookies);
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    $_SESSION['alert'] = ['type' => 'error', 'message' => 'Please log in first to access the page.'];
+    header("Location: ../auth/login.php");
+    exit;
+}
+?>
 <?php require '../admin/layout/header.php';?>
 
     <div class="main-wrapper">

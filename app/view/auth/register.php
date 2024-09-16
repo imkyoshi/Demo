@@ -25,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Left Cover Image with Lorem Ipsum -->
     <div class="items-center justify-center hidden w-full bg-center bg-cover cover md:w-1/2 md:flex" style="background-image: url('../../../public/img/schol2.png');">
-        <div class="px-6 text-center text-white">
-            <!-- <h1 class="mb-4 text-4xl font-bold">Welcome to Our Service</h1>
-            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p> -->
-        </div>
+        <!-- <div class="px-6 text-center text-white">
+            <h1 class="mb-4 text-4xl font-bold">Welcome to Our Service</h1>
+            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p>
+        </div> -->
     </div>
 
     <!-- Right Login Form -->

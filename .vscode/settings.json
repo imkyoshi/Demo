@@ -1,3 +1,4 @@
 {
-    "phpfmt.psr2": true
+    "phpfmt.psr2": true,
+    "commentTranslate.hover.enabled": true
 }

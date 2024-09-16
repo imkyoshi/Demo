@@ -53,7 +53,8 @@ class AuthController
             // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
-            $_SESSION['login_time'] = time(); // For session timeout
+            $_SESSION['login_time'] = time();
+            $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
 
             // Cookies
             $token = bin2hex(random_bytes(32));
@@ -77,7 +78,6 @@ class AuthController
             ];
 
             $redirectUrl = $redirectMap[$user['role']] ?? '../user/dashboard.php';
-            $_SESSION['alert'] = ['type' => 'success', 'message' => 'Login successful.'];
             header("Location: $redirectUrl");
             exit;
         } else {
