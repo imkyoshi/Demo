@@ -1,11 +1,11 @@
-<!-- <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('registerForm');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-
         const formData = new FormData(form);
+
         fetch('', {
             method: 'POST',
             body: formData
@@ -43,4 +43,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-</script> -->
+</script>

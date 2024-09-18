@@ -61,6 +61,7 @@ class UserController
             exit;
         }
     }
+
     // Update an existing user
     public function handlerUpdateUser()
     {
@@ -90,6 +91,7 @@ class UserController
             exit;
         }
     }
+    
     // Delete a new user
     public function handlerDeleteUser()
     {

@@ -1,18 +1,14 @@
-<!-- <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('loginForm');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-
-        const formData = new URLSearchParams(new FormData(form));
+        const formData = new FormData(form);
 
         fetch('', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formData.toString() // Send form data as a URL-encoded string
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
@@ -46,6 +42,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
-</script> -->
+</script>

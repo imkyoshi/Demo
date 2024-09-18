@@ -4,7 +4,8 @@ session_start();
 require '../../../vendor/autoload.php'; // Autoload classes via Composer
 require_once '../../../app/config/Connection.php';
 
-use app\controller\AuthController;
+// use app\controller\AuthController;
+use app\controller\AuthController1;
 use app\model\AuthDAL;
 use app\config\Connection;
 use app\Helpers\Cookies;
@@ -15,7 +16,7 @@ $pdo = $connection->connect();
 //Fetch the Controller,Model And Helpers
 $authDAL = new AuthDAL($pdo);
 $cookies = new Cookies();
-$authController = new AuthController($authDAL, $cookies);
+$authController = new AuthController1($authDAL, $cookies);
 
 // Handle login request
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -55,7 +56,7 @@ if (isset($_SESSION['user_id'])) {
                 <img src="../../../public/img/st 3.png" alt="Brand Logo" class="w-24 mx-auto mb-4 md:w-36">
                 <h2 class="mb-6 text-2xl font-bold">Login</h2><hr class="drop-shadow-md">
             </div>
-            <form id="loginForm" action="" method="POST">
+            <form id="loginForm" action="?aciton=login" method="POST">
                 <div class="mb-4">
                     <label for="email" class="block font-medium text-gray-700 text-md">Email</label>
                     <input type="email" id="email" name="email" autocomplete="on"  class="block w-full px-4 py-2 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500">

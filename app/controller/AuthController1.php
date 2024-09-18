@@ -6,24 +6,21 @@ use app\Helpers\Cookies;
 
 class AuthController1
 {
-    private $authDAL;
-    private $cookies;
+    private AuthDAL $authDAL;
+    protected Cookies $cookies;
 
-    public function __construct(AuthDAL $authDAL)
+    public function __construct(AuthDAL $authDAL, Cookies $cookies)
     {
         $this->authDAL = $authDAL;
-        $this->cookies = new Cookies();
+        $this->cookies = $cookies;
         $this->cookies->initializeSession();
     }
 
     public function login()
     {
-        header('Content-Type: application/json');
-    
         // Ensure the request method is POST and the 'login' field exists
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            echo json_encode(['error' => 'Invalid request method.']);
-            http_response_code(405);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || isset($_POST['login'])) {
+            $this->jsonResponse(['error' => 'Invalid request.'], 405);
             return;
         }
     
@@ -33,16 +30,14 @@ class AuthController1
     
         // Check if email or password is empty
         if (empty($email) || empty($password)) {
-            http_response_code(400);
-            echo json_encode(['error' => 'All fields are required.']);
-            exit;
+            $this->jsonResponse(data: ['error' => 'All fields are required.'], statusCode: 400);
+            return;
         }
     
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Invalid email format.']);
-            exit;
+            $this->jsonResponse(['error' => 'Invalid email format.'], 400);
+            return;
         }
     
         // Authenticate the user
@@ -59,6 +54,7 @@ class AuthController1
             session_regenerate_id(true);
             setcookie('auth_token', $encryptedToken, time() + 86400 * 30, "/", "", true, true);
 
+            // Remember Cookies
             if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
                 $cookieExpiration = time() + 30 * 24 * 60 * 60; // 30 days
                 $encryptedEmail = $this->cookies->encrypt($email);
@@ -80,16 +76,13 @@ class AuthController1
             $response = [
                 'message' => 'Login successful.',
                 'userId' => $user['id'],
-                'fullname' => $user['fullname'],
-                'email' => $user['email'],
                 'redirect' => $redirectUrl,
                 'token' => $token
             ];
-            http_response_code(200);
-            echo json_encode($response);
+            $this->jsonResponse($response, 200);
         } else {
-            http_response_code(401);
-            echo json_encode(['error' => 'Wrong email or password.']);
+            $this->jsonResponse(['error' => 'Wrong email or password.'], 401);
+            return;
         }
         exit;
     }
@@ -97,7 +90,6 @@ class AuthController1
 
     public function register()
     {
-        header('Content-Type: application/json');
         // Sanitize inputs
         $fullname = htmlspecialchars(trim($_POST['fullname']));
         $address = htmlspecialchars(trim($_POST['address']));
@@ -110,24 +102,20 @@ class AuthController1
         
         // Validations
         if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
-            echo json_encode(['error' => 'All fields are required.']);
-            http_response_code(400);
-            exit;
+            $this->jsonResponse(data: ['error' => 'All fields are required.'], statusCode: 400);
+            return;
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo json_encode(['error' => 'Invalid email format.']);
-            http_response_code(400);
-            exit;
+            $this->jsonResponse(['error' => 'Invalid email format.'], 400);
+            return;
         }
         if (strlen($password) < 8) {
-            echo json_encode(['error' => 'Password must be at least 8 characters long.']);
-            http_response_code(400);
-            exit;
+            $this->jsonResponse(['error' => 'Password must be at least 8 characters long.'], 400);
+            return;
         }
         if ($this->authDAL->emailExists($email)) {
-            echo json_encode(['error' => 'User with this email already exists.']);
-            http_response_code(409);
-            exit;
+            $this->jsonResponse(['error' => 'User with this email already exists.'], 409);
+            return;
         }
     
         // Register the user
@@ -143,25 +131,31 @@ class AuthController1
                 'redirect' => 'login.php',
                 'resetToken' => $resetToken,
             ];
-            echo json_encode($response);
-            http_response_code(201);
+            $this->jsonResponse($response, 201);
+            
         } else {
-            echo json_encode(['error' => 'Failed to register user.']);
-            http_response_code(500);
+            $this->jsonResponse(['error' => 'Failed to register user.'], 500);
+            return;
         }
         exit;
     }
 
     public function logout()
     {
-        header('Content-Type: application/json');
         // Regenerate session and unset all data
         $this->cookies->initializeSession();
         session_start();
         session_unset();
         session_destroy();
-        echo json_encode(['message' => 'Logged out successfully.']);
-        http_response_code(200);
+        $this->jsonResponse(['error' => 'Logged out successfully.'], 200);
+        exit;
+    }
+
+    private function jsonResponse(array $data, int $statusCode = 200): void
+    {
+        header('Content-Type: application/json');
+        http_response_code($statusCode);
+        echo json_encode($data);
         exit;
     }
 }

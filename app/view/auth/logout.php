@@ -13,7 +13,7 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Redirect to the login page with a success message
-$_SESSION['alert'] = ['type' => 'success', 'message' => 'Logged out successfully.'];
+// // Redirect to the login page with a success message
+// $_SESSION['alert'] = ['type' => 'success', 'message' => 'Logged out successfully.'];
 header('Location: login.php');
 exit;
