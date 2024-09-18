@@ -4,7 +4,7 @@ session_start();
 require '../../../vendor/autoload.php'; // Autoload classes via Composer
 require_once '../../../app/config/Connection.php';
 
-use app\controller\AuthController;
+use app\controller\AuthController1;
 use app\model\AuthDAL;
 use app\config\Connection;
 use app\Helpers\Cookies; // Make sure to include the Cookies class
@@ -13,10 +13,10 @@ $connection = new Connection();
 $pdo = $connection->connect();
 $authDAL = new AuthDAL($pdo);
 $cookies = new Cookies(); 
-$authController = new AuthController($authDAL, $cookies);
+$authController = new AuthController1($authDAL, $cookies);
 
 // Handle registration request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController->register();
     exit;
 }

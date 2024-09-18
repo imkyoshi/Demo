@@ -124,7 +124,7 @@ class AuthController1
             // Generate a token for password reset purposes
             $resetToken = bin2hex(random_bytes(32));
             $this->authDAL->storePasswordResetToken($email, $resetToken);
-            header('Content-Type: text/html');
+            // header('Content-Type: text/html');
             // Create a response
             $response = [
                 'message' => 'Registration successful. Redirecting to login...',
