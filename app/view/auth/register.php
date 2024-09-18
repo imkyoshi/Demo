@@ -39,7 +39,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                 <img src="../../../public/img/st 3.png" alt="Brand Logo" class="w-24 mx-auto mb-4 md:w-36">
                 <h2 class="mb-6 text-2xl font-bold">Login</h2><hr class="drop-shadow-md">
             </div>
-            <form id="registerForm" action="register.php" method="POST">
+            <form id="registerForm" action="" method="POST">
                 <div class="grid grid-cols-1 gap-4 mb-2 md:grid-cols-2">
                     <div class="mb-2">
                         <label for="fullname" class="block text-sm font-medium text-gray-700">Full Name</label>
@@ -111,6 +111,5 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             </form>
         </div>
     </div>
-    <?php require '../../api/ApiScripts/apiRegister.php'; ?>
     <?php require '../auth/layout/modal.php'; ?>
 <?php require '../auth/layout/footer.php'; ?>

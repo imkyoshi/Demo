@@ -2,6 +2,7 @@
     <!-- <script src="/demo/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script> -->
     <script src="/demo/public/js/inspect.js"></script>
     <script src="/demo/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="/demo/public/js/apiHandler.js"></script>
     <script src="/demo/public/js/modal.js"></script>
     <script>
     <?php if (isset($_SESSION['alert'])): ?>
