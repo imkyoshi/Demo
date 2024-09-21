@@ -3,7 +3,7 @@ namespace app\model;
 use PDO;
 use Exception;
 
-class UserDAL
+class UserDAL1
 {
     private $pdo;
 
@@ -15,7 +15,7 @@ class UserDAL
     //  FETCH USER'S  //
     public function getAllUser()
     {
-        // Fetch All tbl_studentinfo
+        // Fetch All tbl_student info
         $sql = "SELECT * FROM tbl_studentinfo";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -23,13 +23,13 @@ class UserDAL
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getUserById($id)
+    public function getUserById($id): bool
     {
         // Fetch User by ID
         $stmt = $this->pdo->prepare("SELECT * FROM tbl_studentinfo WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+        return (bool)$stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getUserByEmail($email)
@@ -45,7 +45,7 @@ class UserDAL
     ///////////////////////
 
     // Add a new user
-    public function addUser($student_no, $profile_image, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role)
+    public function addUser($student_no, $profile_image, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role): bool
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -53,7 +53,7 @@ class UserDAL
             // Start a transaction
             $this->pdo->beginTransaction();
 
-            // Insert into tbl_studentaccount
+            // Insert into tbl_student-account
             $stmtAccount = $this->pdo->prepare("INSERT INTO tbl_studentaccount (student_no, fullname, email, password, role) 
                                             VALUES (:student_no, :fullname, :email, :password, :role)");
             $stmtAccount->bindParam(':student_no', $student_no, PDO::PARAM_STR);
@@ -63,7 +63,7 @@ class UserDAL
             $stmtAccount->bindParam(':role', $role, PDO::PARAM_STR);
             $stmtAccount->execute();
 
-            // Insert into tbl_studentinfo
+            // Insert into tbl_student-info
             $stmtInfo = $this->pdo->prepare("INSERT INTO tbl_studentinfo (student_no, profile_image, fullname, address, dateOfBirth, gender, phone_number, email) 
                                             VALUES (:student_no, :profile_image, :fullname, :address, :dateOfBirth, :gender, :phone_number, :email)");
             $stmtInfo->bindParam(':student_no', $student_no, PDO::PARAM_STR);

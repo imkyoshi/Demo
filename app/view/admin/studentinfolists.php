@@ -75,8 +75,9 @@ $users = $userController->getAllUser();
                             <div class="wordset">
                                 <ul>
                                     <li>
-                                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                src="../../../public/img/icons/pdf.svg" alt="img"></a>
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf" href="./layout/generatePDF.php">
+                                            <img src="../../../public/img/icons/pdf.svg" alt="img">
+                                        </a>
                                     </li>
                                     <li>
                                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
@@ -133,7 +134,7 @@ $users = $userController->getAllUser();
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table datanew">
+                            <table class="table datanew" id="myTable">
                                 <thead>
                                     <tr>
                                         <th>
@@ -152,9 +153,8 @@ $users = $userController->getAllUser();
                                         <th>Email</th>
                                         <th>password</th>
                                         <th>Role</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                        <!-- <th>Created at</th> -->
+                                        <!-- <th>Created At</th>
+                                        <th>Updated At</th> -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -170,7 +170,7 @@ $users = $userController->getAllUser();
                                             </td>
                                             <td><?php echo htmlspecialchars($user['student_no']); ?></td>    
                                             <td>
-                                                <img src="<?php echo htmlspecialchars('../../../public/uploads/' . $user['profile_image']); ?>" alt="Profile Image" width="40" height="40"> <!-- Display the profile image -->
+                                                <img src="<?php echo htmlspecialchars('../../../public/uploads/profiles/' . $user['profile_image']); ?>" alt="Profile Image" width="40" height="40"> <!-- Display the profile image -->
                                             </td>
                                             <td><?php echo htmlspecialchars($user['fullname']); ?></td>
                                             <td><?php echo htmlspecialchars($user['address']); ?></td>
@@ -188,15 +188,19 @@ $users = $userController->getAllUser();
                                                 </span>
                                             </td>
                                             <td><?php echo htmlspecialchars($user['role']); ?></td>
-                                            <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                                            <td><?php echo htmlspecialchars($user['updated_at']); ?></td>
                                             <td>
-                                            <a class="me-3" href="newuseredit.php">
+                                            <a class="me-3" href="newuseredit.php?edituser=<?php echo $user['id']; ?>">
                                                 <img src="../../../public/img/icons/edit.svg" alt="img">
                                             </a>
-                                            <a class="me-3" href="userlists.php" >
+                                            <a class="me-3" href="javascript:void(0);" onclick="confirmDelete(<?php echo $user['id']; ?>)">
                                                 <img src="../../../public/img/icons/delete.svg" alt="img">
                                             </a>
+
+                                            <!-- Add a hidden form to handle deletion -->
+                                            <form id="deleteUserForm" action="" method="POST" style="display: none;">
+                                                <input type="hidden" name="id" id="deleteUserId">
+                                                <input type="hidden" name="deleteUser" value="1">
+                                            </form>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -394,5 +398,4 @@ $users = $userController->getAllUser();
             </div>
         </div>
     </div>
-
     <?php require '../admin/layout/footer.php';?>

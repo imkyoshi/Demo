@@ -4,13 +4,13 @@ use PDO;
 
 class AuthDAL
 {
-    private $pdo;
+    protected $pdo;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
-    // Authenticate the user before loggin in
+    // Authenticate the user before login in
     public function authenticateUser($email, $password)
     {
         $stmt = $this->pdo->prepare("SELECT id, password, role FROM users WHERE email = :email");
@@ -24,20 +24,20 @@ class AuthDAL
         return false;
     }
     // Check if the email already exists
-    public function emailExists($email)
+    public function emailExists($email): bool
     {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+        return (bool)$stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function studentNoExists($student_no)
+    public function studentNoExists($student_no): bool
     {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE student_no = :student_no");
         $stmt->bindParam(':student_no', $student_no, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+        return (bool)$stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Register the Users
@@ -89,7 +89,7 @@ class AuthDAL
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         return $stmt->execute();
     }
-    // Deleteting Expire Token
+    // Deleting Expire Token
     public function deleteExpiredTokens()
     {
         $stmt = $this->pdo->prepare("DELETE FROM password_resets WHERE expires_at < NOW()");

@@ -25,11 +25,15 @@ class UserDAL
     public function getUserById($id)
     {
         // Fetch User by ID
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+        $stmt->bindParam(1, $id, PDO::PARAM_INT); // Bind the positional parameter
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+        
+        // Return the actual user data or false if no user is found
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    
 
     public function getUserByEmail($email)
     {
@@ -44,13 +48,16 @@ class UserDAL
     ///////////////////////
 
     // Add a new user
-    public function addUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role)
+    public function addUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $profile_image)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare("INSERT INTO users (fullname, address, gender, phone_number, email, password)
-                VALUES (:fullname, :address, :gender, :phone_number, :email, :password, 'user')");
+        
+        // Correct SQL query with all placeholders
+        $stmt = $this->pdo->prepare("INSERT INTO users (student_no, fullname, address, dateOfBirth, gender, phone_number, email, password, role, profile_image)
+                VALUES (:student_no, :fullname, :address, :dateOfBirth, :gender, :phone_number, :email, :password, :role, :profile_image)");
         
         // Bind parameters
+        $stmt->bindParam(':student_no', $student_no, PDO::PARAM_STR);
         $stmt->bindParam(':fullname', $fullname, PDO::PARAM_STR);
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
@@ -59,19 +66,22 @@ class UserDAL
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+        $stmt->bindParam(':profile_image', $profile_image, PDO::PARAM_STR);
 
         return $stmt->execute();
     }
+
 
     // Update an existing user
-    public function updateUser($id, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role)
+    public function updateUser($id, $student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $profile_image)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare( "UPDATE users
-            SET fullname = :fullname, address = :address, gender = :gender, phone_number = :phone_number, email = :email, password = :password, role = :role
+        $stmt = $this->pdo->prepare("UPDATE users
+            SET student_no = :student_no, fullname = :fullname, address = :address, dateOfBirth = :dateOfBirth, gender = :gender, phone_number = :phone_number, email = :email, password = :password, role = :role, profile_image = :profile_image
             WHERE id = :id");
 
-        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':student_no', $student_no, PDO::PARAM_STR);
         $stmt->bindParam(':fullname', $fullname, PDO::PARAM_STR);
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
@@ -80,9 +90,12 @@ class UserDAL
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+        $stmt->bindParam(':profile_image', $profile_image, PDO::PARAM_STR);
 
         return $stmt->execute();
     }
+
+
 
     // Delete a user
     public function deleteUser($id)

@@ -6,14 +6,19 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'tests\\' => array($baseDir . '/tests'),
     'app\\view\\auth\\' => array($baseDir . '/app/view/auth'),
-    'app\\tests\\' => array($baseDir . '/app/tests'),
     'app\\model\\' => array($baseDir . '/app/model'),
     'app\\controller\\' => array($baseDir . '/app/controller'),
     'app\\config\\' => array($baseDir . '/app/config'),
     'app\\api\\' => array($baseDir . '/app/api'),
     'app\\Helpers\\' => array($baseDir . '/app/Helpers'),
     'app\\' => array($baseDir . '/app'),
+    'Svg\\' => array($vendorDir . '/dompdf/php-svg-lib/src/Svg'),
+    'Sabberworm\\CSS\\' => array($vendorDir . '/sabberworm/php-css-parser/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
+    'FontLib\\' => array($vendorDir . '/dompdf/php-font-lib/src/FontLib'),
+    'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );

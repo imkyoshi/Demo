@@ -7,10 +7,10 @@ use PDOException;
 
 class Connection
 {
-    private $host = "localhost";
-    private $user = "root";
-    private $password = "/Otosorb110";
-    private $dbname = "crime";
+    private string $host = "localhost";
+    private string $user = "root";
+    private string $password = "/Otosorb110";
+    private string $dbname = "crime";
     private $pdo;
 
     public function connect()

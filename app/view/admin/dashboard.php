@@ -4,12 +4,10 @@ session_start();
 require '../../../vendor/autoload.php'; // Autoload classes via Composer
 require_once '../../../app/config/Connection.php';
 
-use app\controller\AuthController1;
-use app\controller\TestController;
-use app\model\AuthDAL;
-use app\model\TestDAL;
 use app\config\Connection;
+use app\controller\AuthController1;
 use app\Helpers\Cookies;
+use app\model\AuthDAL;
 
 //Establish Database Connection
 $connection = new Connection();

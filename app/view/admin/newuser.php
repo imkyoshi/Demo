@@ -7,7 +7,6 @@ use app\controller\UserController;
 use app\model\UserDAL;
 use app\config\Connection;
 
-
 //Establish Database Connection
 $connection = new Connection();
 $pdo = $connection->connect();
@@ -97,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <option value="registar">Registar</option>
                                         <option value="cashier">cashier</option>
                                         <option value="student">Student</option>
+                                        <option value="student">User</option>
                                     </select>
                                 </div>
                             </div>

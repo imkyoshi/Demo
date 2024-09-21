@@ -23,7 +23,8 @@
     "require": {
         "php": "^8.2",
       "ext-openssl": "*",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "dompdf/dompdf": "dev-master"
     },
     "scripts": {
         "test": "phpunit",

@@ -18,6 +18,11 @@ class AuthController1
 
     public function login()
     {
+        // Start the session if it's not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         // Ensure the request method is POST and the 'login' field exists
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' || isset($_POST['login'])) {
             $this->jsonResponse(['error' => 'Invalid request.'], 405);
