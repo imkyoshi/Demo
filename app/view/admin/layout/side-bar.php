@@ -11,8 +11,9 @@
                             <a href="javascript:void(0);"><img src="../../../public/img/icons/users1.svg" alt="img"><span>
                                     Users</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="newuser.html">New User </a></li>
-                                <li><a href="userlists.html">Users List</a></li>
+                                <!-- <li><a href="../admin/newuser.php">New User </a></li> -->
+                                <li><a href="../admin/studentaccountlists.php">Student Accounts</a></li>
+                                <li><a href="../admin/studentinfolists.php">Student Information</a></li>
                             </ul>
                         </li>
                         <li class="submenu">

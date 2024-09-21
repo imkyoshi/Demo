@@ -8,7 +8,7 @@
     <?php if (isset($_SESSION['alert'])): ?>
         Swal.fire({
             icon: '<?php echo $_SESSION['alert']['type']; ?>',
-            title: '<?php echo $_SESSION['alert']['message']; ?>',
+            text: '<?php echo $_SESSION['alert']['message']; ?>',
             showConfirmButton: true,
             // timer: 3000, // 3000 milliseconds = 3 seconds
             // timerProgressBar: true // Optional: adds a progress bar

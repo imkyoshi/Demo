@@ -31,12 +31,23 @@ class AuthDAL
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
+
+    public function studentNoExists($student_no)
+    {
+        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE student_no = :student_no");
+        $stmt->bindParam(':student_no', $student_no, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false;
+    }
+
     // Register the Users
-    public function registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role = 'user')
+    public function registerUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role = 'user')
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare("INSERT INTO users (fullname, address, dateOfBirth, gender, phone_number, email, password, role) VALUES (:fullname, :address, :dateOfBirth, :gender, :phone_number, :email, :password, :role)");
+        $stmt = $this->pdo->prepare("INSERT INTO users (student_no,fullname, address, dateOfBirth, gender, phone_number, email, password, role) 
+                                    VALUES (:student_no, :fullname, :address, :dateOfBirth, :gender, :phone_number, :email, :password, :role)");
 
+        $stmt->bindParam(':student_no', $student_no, PDO::PARAM_STR);
         $stmt->bindParam(':fullname', $fullname, PDO::PARAM_STR);
         $stmt->bindParam(':address', $address, PDO::PARAM_STR);
         $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);

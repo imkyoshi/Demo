@@ -152,6 +152,12 @@ class AuthController
         // session_start();
         session_unset();
         session_destroy();
+
+        // Clear cookies
+        setcookie('auth_token', '', time() - 3600, '/', '', true, true);
+        setcookie('user_email', '', time() - 3600, '/', '', true, true);
+
+        // Redirect to login page   
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Logged out successfully.'];
         header("Location: ../auth/login.php");
         exit;

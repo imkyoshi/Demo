@@ -20,6 +20,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     $authController->register();
     exit;
 }
+
 ?>
 <?php require '../auth/layout/header.php'; ?>
 
@@ -79,6 +80,11 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                             <option value="other">Other</option>
                         </select>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="student_no" class="block text-sm font-medium text-gray-700">Studen No:</label>
+                    <input type="student_no" id="student_no" name="student_no" autocomplete="on" class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"required>
+                    <div id="student_noFeedback" class="invalid-feedback">Please enter a valid student_no address.</div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>

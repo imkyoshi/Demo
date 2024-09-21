@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form Wizard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .step {
+            transition: opacity 0.3s ease;
+        }
+        .progress-bar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #d1d5db;
+            z-index: -1;
+        }
+        .progress-bar .step-indicator {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: background-color 0.3s ease;
+        }
+        .progress-bar .step-indicator.active {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+        .progress-bar .step-indicator.completed {
+            background-color: #34d399;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
+        <div id="form-wizard">
+            <!-- Progress Indicator -->
+            <div class="mb-6">
+                <div class="progress-bar">
+                    <div id="step-1-indicator" class="step-indicator active">1</div>
+                    <div id="step-2-indicator" class="step-indicator">2</div>
+                    <div id="step-3-indicator" class="step-indicator">3</div>
+                    <div id="step-4-indicator" class="step-indicator">4</div>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step">
+                <h2 class="mb-4 text-xl font-semibold text-gray-800">Step 1: Personal Information</h2>
+                <form id="step-1-form">
+                    <div class="mb-4">
+                        <label for="first-name" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="first-name" name="first-name" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="last-name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" class="px-3 py-1 text-sm text-white bg-blue-500 rounded-sm" disabled>Previous</button>
+                        <button type="button" id="next-1" class="px-3 py-1 text-sm text-white transition bg-blue-500 rounded-sm hover:bg-blue-600">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="hidden opacity-0 step">
+                <h2 class="mb-4 text-xl font-semibold text-gray-800">Step 2: Contact Information</h2>
+                <form id="step-2-form">
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" id="phone" name="phone" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" id="prev-2" class="px-3 py-1 text-sm text-white transition bg-blue-500 rounded-sm hover:bg-gray-400">Previous</button>
+                        <button type="button" id="next-2" class="px-3 py-1 text-sm text-white transition bg-blue-500 rounded-sm hover:bg-blue-600">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="hidden opacity-0 step">
+                <h2 class="mb-4 text-xl font-semibold text-gray-800">Step 3: Education Information</h2>
+                <form id="step-3-form">
+                    <div class="mb-4">
+                        <label for="degree" class="block text-sm font-medium text-gray-700">Degree</label>
+                        <input type="text" id="degree" name="degree" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="institution" class="block text-sm font-medium text-gray-700">Institution</label>
+                        <input type="text" id="institution" name="institution" class="block w-full p-2 mt-1 text-sm border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="flex justify-between">
+                        <button type="button" id="prev-3" class="px-3 py-1 text-sm text-white transition bg-blue-500 rounded-sm hover:bg-gray-400">Previous</button>
+                        <button type="button" id="next-3" class="px-3 py-1 text-sm text-white transition bg-blue-500 rounded-sm hover:bg-blue-600">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="hidden opacity-0 step">
+                <h2 class="mb-4 text-xl font-semibold text-gray-800">Step 4: Review and Submit</h2>
+                
+                <!-- Personal Information Review -->
+                <div class="mb-6">
+                    <h3 class="mb-2 text-lg font-semibold text-gray-800">Personal Information</h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">First Name</label>
+                        <p id="review-first-name" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">John</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <p id="review-last-name" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">Doe</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Information Review -->
+                <div class="mb-6">
+                    <h3 class="mb-2 text-lg font-semibold text-gray-800">Contact Information</h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <p id="review-email" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">john.doe@example.com</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Phone</label>
+                        <p id="review-phone" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">123-456-7890</p>
+                    </div>
+                </div>
+                
+                <!-- Education Information Review -->
+                <div>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-800">Education Information</h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Degree</label>
+                        <p id="review-degree" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">Bachelor's Degree</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Institution</label>
+                        <p id="review-institution" class="p-2 text-sm bg-gray-100 border border-gray-300 rounded-sm">University of Example</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" id="prev-4" class="px-3 py-1 text-sm text-white transition bg-gray-300 rounded-sm hover:bg-gray-400">Previous</button>
+                    <button type="submit" class="px-3 py-1 text-sm text-white transition bg-green-500 rounded-sm hover:bg-green-600">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            const nextButtons = document.querySelectorAll('[id^=next-]');
+            const prevButtons = document.querySelectorAll('[id^=prev-]');
+            let currentStep = 0;
+
+            function showStep(stepIndex) {
+                steps.forEach((step, index) => {
+                    step.classList.toggle('hidden', index !== stepIndex);
+                    step.classList.toggle('opacity-0', index !== stepIndex);
+                });
+                
+                updateProgress(stepIndex);
+            }
+
+            function updateProgress(stepIndex) {
+                const indicators = document.querySelectorAll('.step-indicator');
+                indicators.forEach((indicator, index) => {
+                    if (index < stepIndex) {
+                        indicator.classList.add('completed');
+                        indicator.classList.remove('active');
+                    } else if (index === stepIndex) {
+                        indicator.classList.add('active');
+                        indicator.classList.remove('completed');
+                    } else {
+                        indicator.classList.remove('completed', 'active');
+                    }
+                });
+            }
+
+            function populateReview() {
+                document.getElementById('review-first-name').textContent = document.getElementById('first-name').value;
+                document.getElementById('review-last-name').textContent = document.getElementById('last-name').value;
+                document.getElementById('review-email').textContent = document.getElementById('email').value;
+                document.getElementById('review-phone').textContent = document.getElementById('phone').value;
+                document.getElementById('review-degree').textContent = document.getElementById('degree').value;
+                document.getElementById('review-institution').textContent = document.getElementById('institution').value;
+            }
+
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        if (currentStep === 3) {
+                            populateReview();
+                        }
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            document.getElementById('step-4-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form submitted!');
+            });
+
+            // Initialize the form wizard
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>
+
+

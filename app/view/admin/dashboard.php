@@ -1,13 +1,17 @@
 <?php
+
 session_start();
 require '../../../vendor/autoload.php'; // Autoload classes via Composer
 require_once '../../../app/config/Connection.php';
 
 use app\controller\AuthController1;
+use app\controller\TestController;
 use app\model\AuthDAL;
+use app\model\TestDAL;
 use app\config\Connection;
 use app\Helpers\Cookies;
 
+//Establish Database Connection
 $connection = new Connection();
 $pdo = $connection->connect();
 
@@ -17,10 +21,13 @@ $cookies = new Cookies();
 $authController = new AuthController1($authDAL, $cookies);
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    $_SESSION['alert'] = ['type' => 'warning', 'message' => 'Please login first <br> To access the page.'];
+    $_SESSION['alert'] = ['type' => 'warning', 'message' => 'Please login first To access the page.'];
     header("Location: ../auth/login.php");
     exit;
 }
+
+//Charts
+
 ?>
 <?php require '../admin/layout/header.php';?>
 

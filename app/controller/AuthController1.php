@@ -91,6 +91,7 @@ class AuthController1
     public function register()
     {
         // Sanitize inputs
+        $student_no = htmlspecialchars(trim($_POST['student_no']));
         $fullname = htmlspecialchars(trim($_POST['fullname']));
         $address = htmlspecialchars(trim($_POST['address']));
         $dateOfBirth = htmlspecialchars(trim($_POST['dateOfBirth']));
@@ -101,7 +102,7 @@ class AuthController1
         $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : 'user';
         
         // Validations
-        if (empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
+        if (empty($student_no) ||empty($fullname) || empty($address) || empty($dateOfBirth) || empty($phone_number) || empty($email) || empty($password)) {
             $this->jsonResponse(data: ['error' => 'All fields are required.'], statusCode: 400);
             return;
         }
@@ -117,9 +118,13 @@ class AuthController1
             $this->jsonResponse(['error' => 'User with this email already exists.'], 409);
             return;
         }
+        if ($this->authDAL->studentnoExists($student_no)) {
+            $this->jsonResponse(['error' => 'User with this student_no already exists.'], 409);
+            return;
+        }
     
         // Register the user
-        $result = $this->authDAL->registerUser($fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role);
+        $result = $this->authDAL->registerUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role);
         if ($result) {
             // Generate a token for password reset purposes
             $resetToken = bin2hex(random_bytes(32));
@@ -132,7 +137,7 @@ class AuthController1
             ];
             $this->jsonResponse($response, 201);
         } else {
-            $this->jsonResponse(['error' => 'Failed to register user.'], 500);
+            $this->jsonResponse(['error' => 'Failed to register user. Please try again later.'], 500);
         }
         exit;
     }

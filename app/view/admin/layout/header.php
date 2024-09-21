@@ -9,20 +9,26 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dreams Pos admin template</title>
+    <title>LMS System</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="../../../public/img/favicon.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="../../../public/img/st 3.png">
 
     <link rel="stylesheet" href="../../../public/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../../../public/css/animate.css">
 
+    <link rel="stylesheet" href="../../../public/plugins/select2/css/select2.min.css">
+    
+    <link rel="stylesheet" href="../../../public/css/bootstrap-datetimepicker.min.css">
+
     <link rel="stylesheet" href="../../../public/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="../../../public/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../../../public/plugins/fontawesome/css/all.min.css">
+    
 
     <link rel="stylesheet" href="../../../public/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
