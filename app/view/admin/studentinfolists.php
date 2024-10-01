@@ -96,31 +96,29 @@ $users = $userController->getAllUser();
                                 <div class="row">
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <input type="text" placeholder="Enter User Name">
+                                            <input type="text" id="student_no" name="student_no" placeholder="Enter Student No">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <input type="text" placeholder="Enter Phone">
+                                            <input type="text" id="fullname" name="fullname" placeholder="Enter Full Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <input type="text" placeholder="Enter Email">
+                                            <input type="text" id="email" name="email" placeholder="Enter Email">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <input type="text" class="datetimepicker cal-icon"
-                                                placeholder="Choose Date">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <select class="select">
-                                                <option>Disable</option>
-                                                <option>Enable</option>
-                                            </select>
+                                        <select class="select" id="role" name="role">
+                                            <option value=""> Select your role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="registar">Registar</option>
+                                            <option value="cashier">cashier</option>
+                                            <option value="student">Student</option>
+                                            <option value="student">User</option>
+                                        </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
@@ -189,6 +187,9 @@ $users = $userController->getAllUser();
                                             </td>
                                             <td><?php echo htmlspecialchars($user['role']); ?></td>
                                             <td>
+                                            <a class="me-3" href="newuseredit.php?edituser=<?php echo $user['id']; ?>">
+                                                <i class="fa fa-eye" style="cursor: pointer;"></i>
+                                            </a>
                                             <a class="me-3" href="newuseredit.php?edituser=<?php echo $user['id']; ?>">
                                                 <img src="../../../public/img/icons/edit.svg" alt="img">
                                             </a>

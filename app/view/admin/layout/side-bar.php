@@ -12,7 +12,7 @@
                                     Users</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <!-- <li><a href="../admin/newuser.php">New User </a></li> -->
-                                <li><a href="../admin/studentaccountlists.php">Student Accounts</a></li>
+                                <!-- <li><a href="../admin/studentaccountlists.php">Student Accounts</a></li> -->
                                 <li><a href="../admin/studentinfolists.php">Student Information</a></li>
                             </ul>
                         </li>

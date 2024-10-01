@@ -49,8 +49,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
                             required>
                     </div>
                     <div class="mb-2">
-                        <label for="phone_numbe" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input type="tel" id="phone_numbe" name="phone_number"
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" id="phone_number" name="phone_number"
                             class="block w-full px-2 py-1 mt-1 transition-colors border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300 hover:border-green-500"
                             required>
                     </div>

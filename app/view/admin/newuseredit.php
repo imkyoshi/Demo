@@ -42,6 +42,9 @@ if (!$user) {
 }
 
 ?>
+<style>
+ 
+</style>
 
 <?php require '../admin/layout/header.php';?>
 
@@ -75,7 +78,7 @@ if (!$user) {
                                 </div>
                                 <div class="form-group">
                                     <label>Birthday</label>
-                                    <input type="text" id="dateOfBirth" name="dateOfBirth" value="<?php echo htmlspecialchars($user['dateOfBirth']); ?>" class="datetimepicker">
+                                    <input type="text" id="dateOfBirth" name="dateOfBirth" value="<?php echo htmlspecialchars($user['dateOfBirth']); ?>" class="datetimepicker" value="21-09-2024">
                                 </div>
                                 <div class="form-group">
                                     <label>Gender</label>
@@ -118,24 +121,24 @@ if (!$user) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                        <label>Profile Picture</label>
-                                        <!-- Display the current image -->
-                                        <?php if (!empty($user['profile_image'])): ?>
-                                            <img src="../../../public/uploads/profiles/<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile Picture" id="currentProfileImage" name="currentProfileImage"" 
-                                            style="max-width: 150px;">
-                                        <?php endif;?>
-                                    </div>
+                                <label for="profile_image" class="form-label">Profile Image</label>
+                                <div class="label-wrapper">
+                                    <?php if (!empty($user['profile_image'])): ?>
+                                        <div>
+                                            <p>Current file: <?php echo htmlspecialchars($user['profile_image']); ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <input class="form-control" type="file" id="profile_image" name="profile_image">
+                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                    <label>New Profile Picture</label>
-                                    <div class="custom-file-container" data-upload-id="myFirstImage">
-                                        <label class="text-black">Clear Image <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                                        <label class="custom-file-container__custom-file">
-                                            <input type="file" class="custom-file-container__custom-file__custom-file-input" id="profile_image" name="profile_image" accept="image/*">
-                                            <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                        </label>
-                                        <div class="custom-file-container__image-preview"></div>
+                                <div class="form-group">
+                                    <label for="image_preview" class="form-label">Profile Image Preview:</label>
+                                    <div id="image_preview" style="margin-top: 10px;">
+                                        <?php if (!empty($user['profile_image'])): ?>
+                                            <img src="../../../public/uploads/profiles/<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile Picture" id="currentProfileImage" name="currentProfileImage" style="max-width: 100%; height: auto; border-radius: 5px; border: 1px solid #ddd;">
+                                        <?php endif;?>
                                     </div>
                                 </div>
                             </div>
@@ -143,6 +146,12 @@ if (!$user) {
                                 <button type="submit" id= "updateUser" name="updateUser" class="btn btn-submit me-2">Add User</button>
                                 <a href="../admin/studentinfolists.php" class="btn btn-cancel">Cancel</a>
                             </div>
+                            <!-- Fullscreen Modal -->
+                            <div id="fullscreenModal" class="modal">
+                                <button class="close-btn" id="closeModal">&times;</button>
+                                <img id="fullscreenImg" src="" alt="Fullscreen Preview">
+                            </div>
+
 
                     </form>
                 </div>

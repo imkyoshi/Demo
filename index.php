@@ -1,37 +1,22 @@
 <?php
+session_start();
 
-// Autoload necessary classes (you can adjust this based on your autoload setup)
+require 'vendor/autoload.php';
+require_once 'app/config/Connection.php';
 
-use app\config\Connection;
+use app\controller\AuthController1;
 use app\model\AuthDAL;
-use app\controller\AuthController;
+use app\config\Connection;
 use app\Helpers\Cookies;
 
-// Parse URL
-$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
-$path = $request_uri[0];
 
 $connection = new Connection();
 $pdo = $connection->connect();
+
+//Fetch the Controller,Model And Helpers
 $authDAL = new AuthDAL($pdo);
 $cookies = new Cookies();
-$authController = new AuthController($authDAL, $cookies);
+$authController = new AuthController1($authDAL, $cookies);
 
-// Routing logic
-switch ($path) {
-    case '/':
-    case '/login':
-        // Redirect to the login page if visiting the base URL or "/login"
-        $authController->login();
-        break;
-    case '/register':
-        $authController->register();
-        break;
-    case '/logout':
-        $authController->logout();
-        break;
-    default:
-        header('HTTP/1.0 404 Not Found');
-        echo '404 Not Found';
-        break;
-}
+
+// routes login, register

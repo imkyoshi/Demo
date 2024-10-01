@@ -64,7 +64,7 @@ class AuthController
             setcookie('auth_token', $encryptedToken, time() + 86400 * 30, "/", "", true, true);
             // Remember Cookies
             if (isset($_POST['remember']) && $_POST['remember'] === 'on') {
-                $cookieExpiration = time() + 30 * 24 * 60 * 60;
+                $cookieExpiration = time() + 30 * 24 * 60 * 60; //
                 $encryptedEmail = $this->cookies->encrypt($email);
                 setcookie('user_email', $encryptedEmail, $cookieExpiration, '/', '', true, true);
             } else {

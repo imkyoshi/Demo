@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                                 <div class="form-group">
                                     <label>Birthday</label>
-                                    <input type="text" id="dateOfBirth" name="dateOfBirth" value="2024-20-09" class="datetimepicker">
+                                    <input type="text" id="dateOfBirth" name="dateOfBirth" class="datetimepicker" value="21-09-2024">
                                 </div>
                                 <div class="form-group">
                                     <label>Gender</label>

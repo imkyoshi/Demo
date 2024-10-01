@@ -48,6 +48,7 @@ if (isset($_SESSION['user_id'])) {
             <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod nisl nec urna luctus, et dapibus nulla aliquet. Sed ac commodo mi. Mauris sit amet justo quam.</p>
         </div> -->
     </div>
+
     <!-- Right Login Form -->
     <div class="flex items-center justify-center w-full p-6 login-form-container md:w-1/2 bg-white-100 md:p-12">
         <div class="w-full max-w-lg login-form max-h-md">

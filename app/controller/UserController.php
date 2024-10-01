@@ -117,16 +117,9 @@ class UserController
             exit;
         }
     
-        // Check if the email already exists
-        $user = $this->userDAL->getUserByEmail($email);
-        if ($user && $user['id'] !== $id) {
-            $_SESSION['alert'] = ['type' => 'warning', 'status' => 'Warning', 'message' => 'Email already exists.'];
-            header('Location: ../admin/newuser.php');
-            exit;
-        }
-    
+        // Retrieve the user data before updating
+        $user = $this->userDAL->getUserById($id); // Ensure this method retrieves the user's current profile image
         $currentProfileImage = isset($user) ? $user['profile_image'] : null;
-
         // Handle file upload
         $newProfileImage = $currentProfileImage; // Default to current if no new image
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
@@ -136,12 +129,16 @@ class UserController
                 header('Location: ../admin/newuser.php');
                 exit;
             }
-
-            // Remove old profile image if exists
+            
+            // Remove old profile image if it exists
             if ($currentProfileImage && file_exists("../../../public/uploads/profiles/$currentProfileImage")) {
-                unlink("../../../public/uploads/profiles/$currentProfileImage");
+                if (!unlink("../../../public/uploads/profiles/$currentProfileImage")) {
+                    // Log error or handle the failure to delete the old image
+                    $_SESSION['alert'] = ['type' => 'warning', 'status' => 'Warning', 'message' => 'Failed to delete the old profile image.'];
+                    // You can decide to continue or halt based on this
+                }
             }
-}
+        }
     
         // Update the user
         $result = $this->userDAL->updateUser($id, $student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $newProfileImage);
@@ -156,6 +153,7 @@ class UserController
             exit;
         }
     }
+    
     
 
     // Delete a new user
@@ -178,6 +176,19 @@ class UserController
             exit;
         }
     }
+
+    public function loadProfilePage($userId)
+    {
+        $user = $this->userDAL->getUserById($userId); // Fetch the user by ID
+        if ($user) {
+            return $user; // Return the user's data including the profile image
+        } else {
+            $_SESSION['alert'] = ['type' => 'error', 'status' => 'Error', 'message' => 'User not found.'];
+            header('Location: ../admin/newuser.php');
+            exit;
+        }
+    }
+
 
     public function handlerFileUpload()
     {
