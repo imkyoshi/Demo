@@ -59,6 +59,7 @@ class UserController
         // Check if the email already exists
         $user = $this->userDAL->getUserByEmail($email);
         if ($user) {
+        
             $_SESSION['alert'] = ['type' => 'warning', 'status' => 'Warning', 'message' => 'Email already exists.'];
             header('Location: ../admin/newuser.php');
             exit;
@@ -81,6 +82,9 @@ class UserController
         $result = $this->userDAL->addUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $profile_image);
 
         if ($result) {
+            // Generate a token for password reset purposes
+            $resetToken = bin2hex(random_bytes(32));
+            $this->userDAL->storePasswordResetToken($email, $resetToken);
             $_SESSION['alert'] = ['type' => 'success', 'status' => 'Success', 'message' => 'Added new user successfully.'];
             header('Location: ../admin/newuser.php');
             exit;

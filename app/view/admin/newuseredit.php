@@ -42,16 +42,12 @@ if (!$user) {
 }
 
 ?>
-<style>
- 
-</style>
 
 <?php require '../admin/layout/header.php';?>
 
 <div class="main-wrapper">
-
-    <?php require '../admin/layout/top-nav.php';?>
-    <?php require '../admin/layout/side-bar.php';?>
+<?php require '../admin/layout/top-nav.php';?>
+<?php require '../admin/layout/side-bar.php';?>
 
     <div class="page-wrapper">
         <div class="content">
@@ -151,8 +147,7 @@ if (!$user) {
                                 <button class="close-btn" id="closeModal">&times;</button>
                                 <img id="fullscreenImg" src="" alt="Fullscreen Preview">
                             </div>
-
-
+                        </div>
                     </form>
                 </div>
             </div>

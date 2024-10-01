@@ -1,6 +1,7 @@
 <?php
 namespace app\model;
 use PDO;
+use Exception;
 
 class UserDAL
 {
@@ -42,6 +43,17 @@ class UserDAL
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function storePasswordResetToken($email, $resetToken)
+    {
+        $expiresAt = new \DateTime('+1 hour');
+        $expiresAtStr = $expiresAt->format('Y-m-d H:i:s'); // Store formatted date in a variable
+        $stmt = $this->pdo->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (:email, :token, :expires_at)");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':token', $resetToken, PDO::PARAM_STR);
+        $stmt->bindParam(':expires_at', $expiresAtStr, PDO::PARAM_STR); // Use the variable here
+        return $stmt->execute();
     }
     ///////////////////////
     //  CRUD OPERATIONS  //
@@ -94,8 +106,6 @@ class UserDAL
 
         return $stmt->execute();
     }
-
-
 
     // Delete a user
     public function deleteUser($id)
