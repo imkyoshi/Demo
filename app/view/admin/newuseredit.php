@@ -124,7 +124,7 @@ if (!$user) {
                                             <p>Current file: <?php echo htmlspecialchars($user['profile_image']); ?></p>
                                         </div>
                                     <?php endif; ?>
-                                    <input class="form-control" type="file" id="profile_image" name="profile_image">
+                                    <input class="form-control" type="file" id="profile_image" name="profile_image" multiple onchange="previewImage()">
                                 </div>
                             </div>
                             </div>

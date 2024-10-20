@@ -21,7 +21,7 @@
 
 <ul class="nav user-menu">
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <div class="top-nav-search">
             <a href="javascript:void(0);" class="responsive-search">
                 <i class="fa fa-search"></i>
@@ -36,7 +36,7 @@
                 <a class="btn" id="searchdiv"><img src="../../../public/img/icons/search.svg" alt="img"></a>
             </form>
         </div>
-    </li>
+    </li> -->
 
     <li class="nav-item dropdown">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">

@@ -57,10 +57,15 @@ class UserController
         }
 
         // Check if the email already exists
-        $user = $this->userDAL->getUserByEmail($email);
-        if ($user) {
-        
+        if ($this->userDAL->getUserByEmail($email)) {
             $_SESSION['alert'] = ['type' => 'warning', 'status' => 'Warning', 'message' => 'Email already exists.'];
+            header('Location: ../admin/newuser.php');
+            exit;
+        }
+
+        // Check if the student_no is already exists
+        if ($this->userDAL->getStudentNo($student_no)) {
+            $_SESSION['alert'] = ['type' => 'warning', 'status' => 'Warning', 'message' => 'Student No already exists.'];
             header('Location: ../admin/newuser.php');
             exit;
         }
@@ -80,7 +85,6 @@ class UserController
 
         // Call the method to add the user to the database
         $result = $this->userDAL->addUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $profile_image);
-
         if ($result) {
             // Generate a token for password reset purposes
             $resetToken = bin2hex(random_bytes(32));
@@ -143,10 +147,8 @@ class UserController
                 }
             }
         }
-    
         // Update the user
         $result = $this->userDAL->updateUser($id, $student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $newProfileImage);
-    
         if ($result) {
             $_SESSION['alert'] = ['type' => 'success', 'status' => 'Success', 'message' => 'Updated user successfully.'];
             header('Location: ../admin/studentinfolists.php');

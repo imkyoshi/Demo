@@ -76,7 +76,6 @@ class AuthController1
                 'user' => '../user/dashboard.php',
             ];
             $redirectUrl = $redirectMap[$user['role']] ?? '../user/dashboard.php';
-        
             // Return success response
             $response = [
                 'message' => 'Login successful.',

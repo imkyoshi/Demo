@@ -34,8 +34,16 @@ class UserDAL
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getStudentNo($student_no)
+    {
+        // Fetch User Student_no
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE student_no = ? LIMIT 1");
+        $stmt->bindParam(1, $student_no, PDO::PARAM_INT); // Bind the positional parameter
+        $stmt->execute();
+        // Return the actual user data or false if no user is found
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
-
     public function getUserByEmail($email)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
