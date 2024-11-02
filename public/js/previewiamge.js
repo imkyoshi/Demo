@@ -6,7 +6,7 @@ document.getElementById('profile_image').addEventListener('change', function(eve
         const reader = new FileReader();
         reader.onload = function(e) {
             const imagePreview = document.createElement('div');
-            imagePreview.className = 'image-preview';
+            imagePreview.className = 'image_preview';
             imagePreview.innerHTML = '<img src="' + e.target.result + '" alt="Profile Image" class="preview-img">';
             previewContainer.innerHTML = ''; // Clear previous content
             previewContainer.appendChild(imagePreview);
@@ -23,34 +23,6 @@ document.getElementById('profile_image').addEventListener('change', function(eve
         reader.readAsDataURL(input.files[0]);
     }
 });
-
-
-function previewImage {
-    const input = document.getElementById('profile_image');
-    const change = document.addEventListener('change');
-    const previewContainer = document.getElementById('image_preview');
-    
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const imagePreview = document.createElement('div');
-            imagePreview.className = 'image-preview';
-            imagePreview.innerHTML = '<img src="' + e.target.result + '" alt="Profile Image" class="preview-img">';
-            previewContainer.innerHTML = ''; // Clear previous content
-            previewContainer.appendChild(imagePreview);
-
-            // Show the preview image in fullscreen when clicked
-            const previewImg = imagePreview.querySelector('img');
-            previewImg.addEventListener('click', function() {
-                const fullscreenModal = document.getElementById('fullscreenModal');
-                const fullscreenImg = document.getElementById('fullscreenImg');
-                fullscreenImg.src = e.target.result;
-                fullscreenModal.style.display = 'flex'; // Show modal
-            });
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 // Close the modal
 document.getElementById('closeModal').addEventListener('click', function() {

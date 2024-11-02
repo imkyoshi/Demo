@@ -12,23 +12,22 @@
 <script src="/demo/public/plugins/apexchart/chart-data.js"></script>
 <script src="/demo/public/js/script.js"></script>
 <script src="/demo/public/js/toogle.js"></script>
-<!-- <script src="/demo/public/js/inspect.js"></script> -->
+<script src="/demo/public/js/inspect.js"></script>
 <script src="/demo/public/js/previewiamge.js"></script>
 <script src="/demo/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="/demo/node_modules/jspdf/dist/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 <script src="/demo/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
 <script>
     <?php if (isset($_SESSION['alert'])): ?>
         Swal.fire({
             icon: '<?php echo $_SESSION['alert']['type']; ?>',
-            title: '<?php echo $_SESSION['alert']['status']; ?>',
             text: '<?php echo $_SESSION['alert']['message']; ?>',
             showConfirmButton: true,
-            timer: 3000, // 3000 milliseconds = 3 seconds
-            timerProgressBar: true // Optional: adds a progress bar
+            // timer: 3000, // 3000 milliseconds = 3 seconds
+            // timerProgressBar: true // Optional: adds a progress bar
         });
         <?php unset($_SESSION['alert']);?>
     <?php endif;?>

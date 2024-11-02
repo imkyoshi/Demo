@@ -6,16 +6,14 @@ use Exception;
 class UserDAL
 {
     private $pdo;
-
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
-
-    //  FETCH USER'S  //
+    
+    //  Get All User
     public function getAllUser()
     {
-        // Fetch All Users
         $sql = "SELECT * FROM users";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -23,27 +21,27 @@ class UserDAL
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Get User By ID
     public function getUserById($id)
     {
-        // Fetch User by ID
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
         $stmt->bindParam(1, $id, PDO::PARAM_INT); // Bind the positional parameter
         $stmt->execute();
-        
-        // Return the actual user data or false if no user is found
+    
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Get Student Number
     public function getStudentNo($student_no)
     {
-        // Fetch User Student_no
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE student_no = ? LIMIT 1");
-        $stmt->bindParam(1, $student_no, PDO::PARAM_INT); // Bind the positional parameter
+        $stmt->bindParam(1, $student_no, PDO::PARAM_INT); 
         $stmt->execute();
-        // Return the actual user data or false if no user is found
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
+
+    // Get User By Email
     public function getUserByEmail($email)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
@@ -71,8 +69,6 @@ class UserDAL
     public function addUser($student_no, $fullname, $address, $dateOfBirth, $gender, $phone_number, $email, $password, $role, $profile_image)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        
-        // Correct SQL query with all placeholders
         $stmt = $this->pdo->prepare("INSERT INTO users (student_no, fullname, address, dateOfBirth, gender, phone_number, email, password, role, profile_image)
                 VALUES (:student_no, :fullname, :address, :dateOfBirth, :gender, :phone_number, :email, :password, :role, :profile_image)");
         

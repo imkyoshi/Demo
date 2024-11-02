@@ -124,14 +124,14 @@ if (!$user) {
                                             <p>Current file: <?php echo htmlspecialchars($user['profile_image']); ?></p>
                                         </div>
                                     <?php endif; ?>
-                                    <input class="form-control" type="file" id="profile_image" name="profile_image" multiple onchange="previewImage()">
+                                    <input class="form-control" type="file" id="profile_image" name="profile_image">
                                 </div>
                             </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="image_preview" class="form-label">Profile Image Preview:</label>
-                                    <div id="image_preview" style="margin-top: 10px;">
+                                    <div class="image-preview" id="image_preview" style="margin-top: 10px;">
                                         <?php if (!empty($user['profile_image'])): ?>
                                             <img src="../../../public/uploads/profiles/<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile Picture" id="currentProfileImage" name="currentProfileImage" style="max-width: 100%; height: auto; border-radius: 5px; border: 1px solid #ddd;">
                                         <?php endif;?>

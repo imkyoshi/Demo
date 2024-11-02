@@ -51,15 +51,15 @@ class AuthControllerTest extends TestCase
     {
         $_SERVER['REQUEST_METHOD'] = 'POST'; // Simulate POST request
         $_POST['login'] = true;
-        $_POST['email'] = 'test@example.com';
-        $_POST['password'] = 'password123';
+        $_POST['email'] = 'test@gmail.com';
+        $_POST['password'] = 'password';
         $_POST['remember'] = 'on';
 
-        $user = ['id' => 1, 'role' => 'admin', 'password' => password_hash('password123', PASSWORD_DEFAULT)];
+        $user = ['id' => 3, 'role' => 'student', 'password' => password_hash('password', PASSWORD_DEFAULT)];
 
         $this->authDAL->expects($this->once())
             ->method('authenticateUser')
-            ->with('test@example.com', 'password123')
+            ->with('test@gmail.com', 'password')
             ->willReturn($user);
 
         // Mock session start to ensure session variables are available
@@ -68,9 +68,6 @@ class AuthControllerTest extends TestCase
         ob_start();
         $this->authController->login();
         $output = ob_get_clean();
-
-        // Debug output
-        echo "Output: " . $output . PHP_EOL;
 
         // Check if the auth_token cookie is set
         $this->assertArrayHasKey('auth_token', $_COOKIE);

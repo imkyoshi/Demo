@@ -93,10 +93,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <select class="select" id="role" name="role">
                                         <option value=""> Select your role</option>
                                         <option value="admin">Admin</option>
-                                        <option value="registar">Registar</option>
+                                        <option value="registar">Registrar</option>
                                         <option value="cashier">cashier</option>
                                         <option value="student">Student</option>
-                                        <option value="student">User</option>
+                                        <option value="user">User</option>
                                     </select>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" id= "addUser" name="addUser" class="btn btn-submit me-2">Add User</button>
+                                <button type="submit" id="addUser" name="addUser" class="btn btn-submit me-2">Add User</button>
                                 <a href="../admin/studentinfolists.php" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>

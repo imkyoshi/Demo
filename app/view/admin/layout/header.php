@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/demo/public/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/demo/public/plugins/fontawesome/css/all.min.css">
 
-    
+    <link rel="stylesheet" href="/demo/node_modules/sweetalert2/dist/sweetalert2.min.css">
 
     <link rel="stylesheet" href="/demo/public/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
