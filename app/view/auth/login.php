@@ -29,7 +29,7 @@ if (isset($_SESSION['user_id'])) {
     // Redirect based on role
     $redirectMap = [
         'admin' => '../admin/dashboard.php',
-        'officer' => '../officer/dashboard.php',
+        'registrar' => '../registrar/dashboard.php',
         'user' => '../user/dashboard.php',
     ];
 

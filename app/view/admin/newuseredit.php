@@ -7,11 +7,9 @@ use app\config\Connection;
 use app\controller\UserController;
 use app\model\UserDAL;
 
-// Establish Database Connection
-$connection = new Connection();
+$connection = new Connection();// Establish Database Connection
 $pdo = $connection->connect();
-// Fetch the Controller, Model of User
-$userDAL = new UserDAL($pdo);
+$userDAL = new UserDAL($pdo); // Fetch the Controller, Model of User
 $userController = new UserController($userDAL);
 
 // Check if the user is logged in and has the correct role
@@ -40,14 +38,13 @@ if (!$user) {
     header("Location: studentinfolists.php");
     exit;
 }
-
 ?>
 
 <?php require '../admin/layout/header.php';?>
 
 <div class="main-wrapper">
 <?php require '../admin/layout/top-nav.php';?>
-<?php require '../admin/layout/side-bar.php';?>
+    <?php require '../admin/layout/side-bar.php';?>
 
     <div class="page-wrapper">
         <div class="content">
@@ -133,7 +130,8 @@ if (!$user) {
                                     <label for="image_preview" class="form-label">Profile Image Preview:</label>
                                     <div class="image-preview" id="image_preview" style="margin-top: 10px;">
                                         <?php if (!empty($user['profile_image'])): ?>
-                                            <img src="../../../public/uploads/profiles/<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile Picture" id="currentProfileImage" name="currentProfileImage" style="max-width: 100%; height: auto; border-radius: 5px; border: 1px solid #ddd;">
+                                            <img src="../../../public/uploads/profiles/<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile Picture" 
+                                            id="currentProfileImage" name="currentProfileImage" style="max-width: 100%; height: auto; border-radius: 5px; border: 1px solid #ddd;">
                                         <?php endif;?>
                                     </div>
                                 </div>

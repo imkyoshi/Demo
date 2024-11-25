@@ -74,7 +74,7 @@ class AuthController
             // Redirect based on role
             $redirectMap = [
                 'admin' => '../admin/dashboard.php',
-                'officer' => '../officer/dashboard.php',
+                'registrar' => '../registrar/dashboard.php',
                 'user' => '../user/dashboard.php',
             ];
 

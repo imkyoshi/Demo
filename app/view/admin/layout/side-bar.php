@@ -18,7 +18,7 @@
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="../../../public/img/icons/product.svg" alt="img"><span>
-                                    Product</span> <span class="menu-arrow"></span></a>
+                                    Deparment</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="../admin/productlist.html">Product List</a></li>
                                 <li><a href="../admin/addproduct.html">Add Product</a></li>
@@ -34,7 +34,7 @@
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="../../../public/img/icons/sales1.svg" alt="img"><span>
-                                    Sales</span> <span class="menu-arrow"></span></a>
+                                    Course</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="../admin/saleslist.html">Sales List</a></li>
                                 <li><a href="../admin/pos.html">POS</a></li>
@@ -115,6 +115,19 @@
                                 <li><a href="../admin/customerreport.html">Customer Report</a></li>
                             </ul>
                         </li>
+                        <hr><label>Other</label>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="../../../public/img/icons/settings.svg" alt="img"><span>
+                                    Profile</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="../admin/generalsettings.html">General Settings</a></li>
+                                <li><a href="../admin/emailsettings.html">Email Settings</a></li>
+                                <li><a href="../admin/paymentsettings.html">Payment Settings</a></li>
+                                <li><a href="../admin/currencysettings.html">Currency Settings</a></li>
+                                <li><a href="../admin/grouppermissions.html">Group Permissions</a></li>
+                                <li><a href="../admin/taxrates.html">Tax Rates</a></li>
+                            </ul>
+                        </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="../../../public/img/icons/settings.svg" alt="img"><span>
                                     Settings</span> <span class="menu-arrow"></span></a>
@@ -126,6 +139,12 @@
                                 <li><a href="../admin/grouppermissions.html">Group Permissions</a></li>
                                 <li><a href="../admin/taxrates.html">Tax Rates</a></li>
                             </ul>
+                        </li>
+                        <li class="menu">
+                            <!-- <a href="../auth/logout.php"><img src="../../../public/img/icons/log-out.svg" alt="img"><span>
+                                    Logout</span></a> -->
+                                <a class="logout" href="../auth/logout.php"><img src="../../../public/img/icons/log-out.svg" class="me-2" alt="img"><span>
+                                Logout</span></a>
                         </li>
                     </ul>
                 </div>
